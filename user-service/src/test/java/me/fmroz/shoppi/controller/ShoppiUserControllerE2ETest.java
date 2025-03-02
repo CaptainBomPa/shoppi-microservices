@@ -1,9 +1,8 @@
 package me.fmroz.shoppi.controller;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import me.fmroz.shoppi.config.TestSecurityConfig;
+import me.fmroz.auth.AccountType;
 import me.fmroz.shoppi.model.ShoppiUser;
-import me.fmroz.shoppi.model.staticdata.AccountType;
 import me.fmroz.shoppi.model.staticdata.Gender;
 import me.fmroz.shoppi.repository.ShoppiUserRepository;
 import org.junit.jupiter.api.BeforeEach;
@@ -24,9 +23,8 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 @SpringBootTest
-@AutoConfigureMockMvc
+@AutoConfigureMockMvc(addFilters = false)
 @ActiveProfiles("test")
-@Import(TestSecurityConfig.class)
 public class ShoppiUserControllerE2ETest {
 
     @Autowired

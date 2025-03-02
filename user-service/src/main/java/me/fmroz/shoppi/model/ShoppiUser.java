@@ -5,7 +5,7 @@ import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.PastOrPresent;
 import lombok.*;
-import me.fmroz.shoppi.model.staticdata.AccountType;
+import me.fmroz.auth.AccountType;
 import me.fmroz.shoppi.model.staticdata.Gender;
 
 import java.time.ZonedDateTime;
