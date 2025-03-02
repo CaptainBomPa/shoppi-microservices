@@ -42,20 +42,23 @@ public class ShoppiUser {
 
     @Column(nullable = false, updatable = false)
     @PastOrPresent
+    @Builder.Default
     private ZonedDateTime registrationDate = ZonedDateTime.now();
 
     @Enumerated(EnumType.STRING)
     @Column(nullable = false)
+    @Builder.Default
     private Gender gender = Gender.UNKNOWN;
 
     @Enumerated(EnumType.STRING)
     @Column(nullable = false)
+    @Builder.Default
     private AccountType accountType = AccountType.USER;
 
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<ShippingInfo> shippingAddresses;
 
-    @OneToOne(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
+    @OneToOne(mappedBy = "user", orphanRemoval = true)
     @PrimaryKeyJoinColumn
     private CompanyInfo companyInfo;
 
