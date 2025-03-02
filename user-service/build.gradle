@@ -21,6 +21,7 @@ configurations {
 
 repositories {
     mavenCentral()
+    mavenLocal()
 }
 
 ext {
@@ -38,6 +39,7 @@ dependencies {
     implementation 'io.zipkin.reporter2:zipkin-reporter-brave:3.4.3'
     implementation 'org.springframework.cloud:spring-cloud-starter-netflix-eureka-client:4.2.0'
     implementation 'org.springframework.cloud:spring-cloud-starter-openfeign:4.2.0'
+    implementation 'me.fmroz.auth:auth-library:1.0.0'
     compileOnly 'org.projectlombok:lombok:1.18.26'
     developmentOnly 'org.springframework.boot:spring-boot-devtools:3.4.3'
     developmentOnly 'org.springframework.boot:spring-boot-docker-compose:3.4.3'
