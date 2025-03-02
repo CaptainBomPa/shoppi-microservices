@@ -7,4 +7,6 @@ import java.util.Optional;
 
 public interface ShoppiUserRepository extends JpaRepository<ShoppiUser, Long> {
     Optional<ShoppiUser> findByEmail(String email);
+
+    Optional<ShoppiUser> findByRefreshToken(String refreshToken);
 }

@@ -15,19 +15,19 @@ public class JwtUtilTest {
     }
 
     @Test
-    void shouldGenerateAndValidateToken() {
+    void shouldGenerateAndValidateAccessToken() {
         AuthUserDetails userDetails = new AuthUserDetails("user@example.com", AccountType.USER);
 
-        String token = JwtUtil.generateToken(userDetails);
-        assertThat(token).isNotNull();
+        String accessToken = JwtUtil.generateAccessToken(userDetails);
+        assertThat(accessToken).isNotNull();
 
-        boolean isValid = JwtUtil.validateToken(token, userDetails);
+        boolean isValid = JwtUtil.validateToken(accessToken, userDetails);
         assertThat(isValid).isTrue();
 
-        String username = JwtUtil.extractUsername(token);
+        String username = JwtUtil.extractUsername(accessToken);
         assertThat(username).isEqualTo("user@example.com");
 
-        AccountType role = JwtUtil.extractUserRole(token);
+        AccountType role = JwtUtil.extractUserRole(accessToken);
         assertThat(role).isEqualTo(AccountType.USER);
     }
 
@@ -38,5 +38,20 @@ public class JwtUtilTest {
 
         boolean isValid = JwtUtil.validateToken(fakeToken, userDetails);
         assertThat(isValid).isFalse();
+    }
+
+    @Test
+    void shouldGenerateAndValidateRefreshToken() {
+        AuthUserDetails userDetails = new AuthUserDetails("user@example.com", AccountType.USER);
+
+        String refreshToken = JwtUtil.generateRefreshToken(userDetails);
+        assertThat(refreshToken).isNotNull();
+        assertThat(refreshToken).isNotBlank();
+
+        boolean isValid = JwtUtil.validateToken(refreshToken, userDetails);
+        assertThat(isValid).isTrue();
+
+        String username = JwtUtil.extractUsername(refreshToken);
+        assertThat(username).isEqualTo("user@example.com");
     }
 }

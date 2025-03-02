@@ -12,3 +12,24 @@ spring:
   sql:
     init:
       mode: always
+
+  docker:
+    compose:
+      enabled: false
+
+  rabbitmq:
+    host: localhost
+    port: 5672
+    username: guest
+    password: guest
+    listener.simple.auto-startup: false # 🔹 Wyłącza RabbitMQ w testach
+
+eureka:
+  client:
+    enabled: false # 🔹 Wyłącza Eureka w testach
+  instance:
+    prefer-ip-address: true
+
+management:
+  tracing:
+    enabled: false # 🔹 Wyłącza tracing (Zipkin) w testach

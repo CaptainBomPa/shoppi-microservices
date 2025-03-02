@@ -5,6 +5,9 @@ import me.fmroz.auth.AuthUserDetails;
 import me.fmroz.auth.JwtUtil;
 import me.fmroz.shoppi.dto.LoginRequest;
 import me.fmroz.shoppi.dto.LoginResponse;
+import me.fmroz.shoppi.dto.RefreshTokenRequest;
+import me.fmroz.shoppi.dto.RefreshTokenResponse;
+import me.fmroz.shoppi.exception.InvalidRefreshTokenException;
 import me.fmroz.shoppi.model.ShoppiUser;
 import me.fmroz.shoppi.repository.ShoppiUserRepository;
 import org.springframework.http.ResponseEntity;
@@ -25,8 +28,26 @@ public class AuthService {
         }
 
         AuthUserDetails userDetails = new AuthUserDetails(user.getEmail(), user.getAccountType());
-        String token = JwtUtil.generateToken(userDetails);
+        String accessToken = JwtUtil.generateAccessToken(userDetails);
+        String refreshToken = JwtUtil.generateRefreshToken(userDetails);
 
-        return ResponseEntity.ok(new LoginResponse(token));
+        user.setRefreshToken(refreshToken);
+        userRepository.save(user);
+
+        return ResponseEntity.ok(new LoginResponse(accessToken, refreshToken));
+    }
+
+    public ResponseEntity<RefreshTokenResponse> refreshToken(RefreshTokenRequest request) {
+        ShoppiUser user = userRepository.findByRefreshToken(request.getRefreshToken())
+                .orElseThrow(() -> new InvalidRefreshTokenException("Invalid Refresh Token"));
+
+        AuthUserDetails userDetails = new AuthUserDetails(user.getEmail(), user.getAccountType());
+
+        if (!JwtUtil.validateToken(request.getRefreshToken(), userDetails)) {
+            return ResponseEntity.status(401).build();
+        }
+
+        String newAccessToken = JwtUtil.generateAccessToken(userDetails);
+        return ResponseEntity.ok(new RefreshTokenResponse(newAccessToken));
     }
 }

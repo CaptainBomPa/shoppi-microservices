@@ -62,6 +62,9 @@ public class ShoppiUser {
     @PrimaryKeyJoinColumn
     private CompanyInfo companyInfo;
 
+    @Column(nullable = true)
+    private String refreshToken;
+
     @PrePersist
     @PreUpdate
     private void validateAccountType() {

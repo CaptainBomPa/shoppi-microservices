@@ -12,16 +12,26 @@ public class JwtUtil {
 
     private static final Dotenv dotenv = Dotenv.load();
     private static final String SECRET_KEY = dotenv.get("JWT_SECRET");
-    private static final long EXPIRATION_TIME = 1000 * 60 * 60;
+    private static final long ACCESS_TOKEN_EXPIRATION = 1000 * 60 * 15; // 15 min
+    private static final long REFRESH_TOKEN_EXPIRATION = 1000 * 60 * 60 * 24 * 7; // 7 days
 
     private static final Key key = Keys.hmacShaKeyFor(SECRET_KEY.getBytes());
 
-    public static String generateToken(AuthUserDetails userDetails) {
+    public static String generateAccessToken(AuthUserDetails userDetails) {
         return Jwts.builder()
                 .setSubject(userDetails.getUsername())
                 .claim("role", userDetails.getRole().name())
                 .setIssuedAt(new Date())
-                .setExpiration(new Date(System.currentTimeMillis() + EXPIRATION_TIME))
+                .setExpiration(new Date(System.currentTimeMillis() + ACCESS_TOKEN_EXPIRATION))
+                .signWith(key, SignatureAlgorithm.HS256)
+                .compact();
+    }
+
+    public static String generateRefreshToken(AuthUserDetails userDetails) {
+        return Jwts.builder()
+                .setSubject(userDetails.getUsername())
+                .setIssuedAt(new Date())
+                .setExpiration(new Date(System.currentTimeMillis() + REFRESH_TOKEN_EXPIRATION))
                 .signWith(key, SignatureAlgorithm.HS256)
                 .compact();
     }
@@ -34,7 +44,6 @@ public class JwtUtil {
             return false;
         }
     }
-
 
     private static boolean isTokenExpired(String token) {
         return extractClaim(token, Claims::getExpiration).before(new Date());
