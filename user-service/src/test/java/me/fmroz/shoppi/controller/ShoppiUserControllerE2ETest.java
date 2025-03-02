@@ -10,8 +10,8 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.context.annotation.Import;
 import org.springframework.http.MediaType;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.web.servlet.MockMvc;
 
@@ -36,6 +36,10 @@ public class ShoppiUserControllerE2ETest {
     @Autowired
     private ShoppiUserRepository userRepository;
 
+    private final String RAW_PASSWORD = "securepassword";
+    @Autowired
+    private PasswordEncoder passwordEncoder;
+
     @BeforeEach
     void setUp() {
         userRepository.deleteAll();
@@ -47,7 +51,7 @@ public class ShoppiUserControllerE2ETest {
                 .email("test@example.com")
                 .firstName("John")
                 .lastName("Doe")
-                .password("securepassword")
+                .password(RAW_PASSWORD)
                 .gender(Gender.MALE)
                 .accountType(AccountType.USER)
                 .registrationDate(ZonedDateTime.now())
@@ -64,6 +68,8 @@ public class ShoppiUserControllerE2ETest {
         assertThat(savedUser.getLastName()).isEqualTo("Doe");
         assertThat(savedUser.getGender()).isEqualTo(Gender.MALE);
         assertThat(savedUser.getAccountType()).isEqualTo(AccountType.USER);
+        assertThat(savedUser.getPassword()).isNotEqualTo(RAW_PASSWORD);
+        assertThat(passwordEncoder.matches(RAW_PASSWORD, savedUser.getPassword())).isTrue();
     }
 
     @Test
@@ -72,7 +78,7 @@ public class ShoppiUserControllerE2ETest {
                 .email("minimal@example.com")
                 .firstName("Anna")
                 .lastName("Smith")
-                .password("password123")
+                .password(RAW_PASSWORD)
                 .accountType(AccountType.USER)
                 .registrationDate(ZonedDateTime.now())
                 .build();
@@ -88,6 +94,8 @@ public class ShoppiUserControllerE2ETest {
         assertThat(savedUser.getLastName()).isEqualTo("Smith");
         assertThat(savedUser.getGender()).isEqualTo(Gender.UNKNOWN);
         assertThat(savedUser.getAccountType()).isEqualTo(AccountType.USER);
+        assertThat(savedUser.getPassword()).isNotEqualTo(RAW_PASSWORD);
+        assertThat(passwordEncoder.matches(RAW_PASSWORD, savedUser.getPassword())).isTrue();
     }
 
     @Test
@@ -97,7 +105,7 @@ public class ShoppiUserControllerE2ETest {
                         .email("existing@example.com")
                         .firstName("Mike")
                         .lastName("Brown")
-                        .password("oldpassword")
+                        .password(passwordEncoder.encode("oldpassword"))
                         .gender(Gender.MALE)
                         .accountType(AccountType.USER)
                         .registrationDate(ZonedDateTime.now())
@@ -123,5 +131,6 @@ public class ShoppiUserControllerE2ETest {
         assertThat(updatedFromDb.getLastName()).isEqualTo("Brown Jr.");
         assertThat(updatedFromDb.getGender()).isEqualTo(Gender.MALE);
         assertThat(updatedFromDb.getAccountType()).isEqualTo(AccountType.USER);
+        assertThat(updatedFromDb.getPassword()).isEqualTo(user.getPassword());
     }
 }

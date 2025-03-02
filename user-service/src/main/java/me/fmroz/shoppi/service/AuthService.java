@@ -11,6 +11,7 @@ import me.fmroz.shoppi.exception.InvalidRefreshTokenException;
 import me.fmroz.shoppi.model.ShoppiUser;
 import me.fmroz.shoppi.repository.ShoppiUserRepository;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -18,12 +19,13 @@ import org.springframework.stereotype.Service;
 public class AuthService {
 
     private final ShoppiUserRepository userRepository;
+    private final PasswordEncoder passwordEncoder;
 
     public ResponseEntity<LoginResponse> login(LoginRequest request) {
         ShoppiUser user = userRepository.findByEmail(request.getEmail())
                 .orElseThrow(() -> new RuntimeException("User not found"));
 
-        if (!user.getPassword().equals(request.getPassword())) {
+        if (!passwordEncoder.matches(request.getPassword(), user.getPassword())) {
             return ResponseEntity.status(401).build();
         }
 

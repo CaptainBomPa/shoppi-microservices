@@ -6,6 +6,7 @@ import me.fmroz.shoppi.exception.EmailAlreadyInUseException;
 import me.fmroz.shoppi.exception.UserNotFoundException;
 import me.fmroz.shoppi.model.ShoppiUser;
 import me.fmroz.shoppi.repository.ShoppiUserRepository;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
 
@@ -14,10 +15,14 @@ import org.springframework.util.StringUtils;
 public class ShoppiUserService {
 
     private final ShoppiUserRepository shoppiUserRepository;
+    private final PasswordEncoder passwordEncoder;
 
     @Transactional
     public ShoppiUser createUser(ShoppiUser user) {
         validateEmailUniqueness(user.getEmail());
+
+        user.setPassword(passwordEncoder.encode(user.getPassword()));
+
         return shoppiUserRepository.save(user);
     }
 
@@ -50,7 +55,7 @@ public class ShoppiUserService {
             throw new IllegalArgumentException("Password cannot be empty");
         }
 
-        existingUser.setPassword(newPassword);
+        existingUser.setPassword(passwordEncoder.encode(newPassword));
         shoppiUserRepository.save(existingUser);
     }
 
@@ -65,5 +70,4 @@ public class ShoppiUserService {
             throw new EmailAlreadyInUseException("Email " + email + " is already in use");
         }
     }
-
 }

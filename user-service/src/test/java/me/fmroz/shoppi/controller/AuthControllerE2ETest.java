@@ -16,6 +16,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.http.MediaType;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.web.servlet.MockMvc;
 
@@ -43,6 +44,9 @@ public class AuthControllerE2ETest {
     @Autowired
     private ShoppiUserRepository userRepository;
 
+    @Autowired
+    private PasswordEncoder passwordEncoder;
+
     @BeforeEach
     void setUp() {
         userRepository.deleteAll();
@@ -66,7 +70,6 @@ public class AuthControllerE2ETest {
 
         ShoppiUser savedUser = userRepository.findByEmail(TEST_EMAIL).orElseThrow();
         assertThat(savedUser.getEmail()).isEqualTo(TEST_EMAIL);
-        assertThat(savedUser.getPassword()).isEqualTo(TEST_PASSWORD);
 
         LoginRequest loginRequest = new LoginRequest();
         loginRequest.setEmail(TEST_EMAIL);
@@ -96,7 +99,7 @@ public class AuthControllerE2ETest {
                 .email(TEST_EMAIL)
                 .firstName("John")
                 .lastName("Doe")
-                .password(TEST_PASSWORD)
+                .password(passwordEncoder.encode(TEST_PASSWORD))
                 .accountType(AccountType.USER)
                 .registrationDate(ZonedDateTime.now())
                 .build();
