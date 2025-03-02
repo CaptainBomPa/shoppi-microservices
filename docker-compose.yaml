@@ -74,6 +74,26 @@ services:
     ports:
       - "9411:9411"
 
+  user-service:
+    build:
+      context: .
+      dockerfile: user-service/Dockerfile
+    container_name: user-service
+    restart: always
+    depends_on:
+      - postgres-user-service
+      - eureka
+      - rabbitmq
+    environment:
+      SPRING_PROFILES_ACTIVE: docker
+      JWT_SECRET: ${JWT_SECRET}
+    ports:
+      - "8081:8081"
+    volumes:
+      - maven_local:/root/.m2
+      - ./user-service/.env:/app/.env
+
 volumes:
   user_postgres_data:
   grafana_data:
+  maven_local:
