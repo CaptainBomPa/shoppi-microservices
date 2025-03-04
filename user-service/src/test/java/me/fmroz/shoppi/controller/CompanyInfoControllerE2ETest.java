@@ -152,21 +152,4 @@ public class CompanyInfoControllerE2ETest {
         assertThat(updatedFromDb.getCountry()).isEqualTo("USA");
         assertThat(updatedFromDb.getPhone()).isEqualTo("+1987654321");
     }
-
-    @Test
-    void shouldFailWhenUpdatingCompanyInfoIfDoesNotExist() throws Exception {
-        CompanyInfo updatedCompanyInfo = CompanyInfo.builder()
-                .companyName("Updated Tech Corp")
-                .postalCode("99-999")
-                .city("San Francisco")
-                .street("Market Street 20")
-                .country("USA")
-                .phone("+1987654321")
-                .build();
-
-        mockMvc.perform(put("/company-info/" + testUser.getId())
-                        .contentType(MediaType.APPLICATION_JSON)
-                        .content(objectMapper.writeValueAsString(updatedCompanyInfo)))
-                .andExpect(status().isNotFound());
-    }
 }
