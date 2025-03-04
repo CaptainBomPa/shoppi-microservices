@@ -3,6 +3,7 @@ package me.fmroz.shoppi.service;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import me.fmroz.shoppi.exception.EmailAlreadyInUseException;
+import me.fmroz.shoppi.exception.MissingPasswordException;
 import me.fmroz.shoppi.exception.UserNotFoundException;
 import me.fmroz.shoppi.model.ShoppiUser;
 import me.fmroz.shoppi.repository.ShoppiUserRepository;
@@ -52,7 +53,7 @@ public class ShoppiUserService {
         ShoppiUser existingUser = findUserById(userId);
 
         if (!StringUtils.hasText(newPassword)) {
-            throw new IllegalArgumentException("Password cannot be empty");
+            throw new MissingPasswordException("Password cannot be empty");
         }
 
         existingUser.setPassword(passwordEncoder.encode(newPassword));
@@ -63,6 +64,12 @@ public class ShoppiUserService {
     public ShoppiUser findUserById(Long userId) {
         return shoppiUserRepository.findById(userId)
                 .orElseThrow(() -> new UserNotFoundException("User with ID " + userId + " not found"));
+    }
+
+    @Transactional
+    public ShoppiUser getUserByEmail(String email) {
+        return shoppiUserRepository.findByEmail(email)
+                .orElseThrow(() -> new UserNotFoundException("User with email " + email + " not found"));
     }
 
     private void validateEmailUniqueness(String email) {

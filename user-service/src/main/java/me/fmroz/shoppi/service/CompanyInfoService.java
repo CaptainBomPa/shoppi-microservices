@@ -3,7 +3,7 @@ package me.fmroz.shoppi.service;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import me.fmroz.shoppi.exception.CompanyInfoAlreadyExistsException;
-import me.fmroz.shoppi.exception.CompanyInfoNotFoundException;
+import me.fmroz.shoppi.exception.DifferentUserShippingInfoException;
 import me.fmroz.shoppi.exception.UserNotFoundException;
 import me.fmroz.shoppi.model.CompanyInfo;
 import me.fmroz.shoppi.model.ShoppiUser;
@@ -67,13 +67,8 @@ public class CompanyInfoService {
     }
 
     private CompanyInfo validateUserOwnership(Long userId) {
-        CompanyInfo companyInfo = companyInfoRepository.findByUserId(userId)
-                .orElseThrow(() -> new CompanyInfoNotFoundException("Company information for user with ID " + userId + " not found"));
-
-        if (!companyInfo.getUser().getId().equals(userId)) {
-            throw new IllegalArgumentException("This company information does not belong to the user");
-        }
-        return companyInfo;
+        return companyInfoRepository.findByUserId(userId)
+                .orElseThrow(() -> new DifferentUserShippingInfoException("Company information for user with ID " + userId + " not found"));
     }
 
 }

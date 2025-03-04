@@ -2,6 +2,7 @@ package me.fmroz.shoppi.service;
 
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
+import me.fmroz.shoppi.exception.DifferentUserShippingInfoException;
 import me.fmroz.shoppi.exception.ShippingInfoNotFoundException;
 import me.fmroz.shoppi.exception.UserNotFoundException;
 import me.fmroz.shoppi.model.ShippingInfo;
@@ -70,7 +71,7 @@ public class ShippingInfoService {
     private ShippingInfo validateUserOwnership(Long userId, Long shippingInfoId) {
         ShippingInfo shippingInfo = findShippingInfoById(shippingInfoId);
         if (!shippingInfo.getUser().getId().equals(userId)) {
-            throw new IllegalArgumentException("This shipping info does not belong to the user");
+            throw new DifferentUserShippingInfoException("This shipping info does not belong to the user");
         }
         return shippingInfo;
     }
