@@ -1,26 +1,44 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React from "react";
+import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
+import { ThemeProvider } from "./context/ThemeContext";
+import { AuthProvider } from "./context/AuthContext";
+import Navbar from "./components/Navbar";
+import Home from "./pages/Home";
+import MyOrders from "./pages/MyOrders";
+import MyAddresses from "./pages/MyAddresses";
+import Favourites from "./pages/Favourites";
+import UserSettings from "./pages/UserSettings";
+import MyOffers from "./pages/MyOffers";
+import CompanySettings from "./pages/CompanySettings";
+import ProtectedRoute from "./components/ProtectedRoute";
 
 function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+    return (
+        <AuthProvider>
+            <ThemeProvider>
+                <Router>
+                    <div className="min-h-screen font-sans bg-white dark:bg-gray-900 text-primary dark:text-light">
+                        <Navbar />
+                        <Routes>
+                            <Route path="/" element={<Home />} />
+
+                            <Route element={<ProtectedRoute allowedAccountType="USER" redirectPath="/" />}>
+                                <Route path="/my-orders" element={<MyOrders />} />
+                                <Route path="/my-addresses" element={<MyAddresses />} />
+                                <Route path="/favourites" element={<Favourites />} />
+                                <Route path="/user-settings" element={<UserSettings />} />
+                            </Route>
+
+                            <Route element={<ProtectedRoute allowedAccountType="SELLER" redirectPath="/" />}>
+                                <Route path="/my-offers" element={<MyOffers />} />
+                                <Route path="/company-settings" element={<CompanySettings />} />
+                            </Route>
+                        </Routes>
+                    </div>
+                </Router>
+            </ThemeProvider>
+        </AuthProvider>
+    );
 }
 
 export default App;
