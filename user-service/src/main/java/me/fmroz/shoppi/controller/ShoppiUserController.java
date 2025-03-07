@@ -1,6 +1,9 @@
 package me.fmroz.shoppi.controller;
 
 import lombok.RequiredArgsConstructor;
+import me.fmroz.shoppi.dto.ChangeEmailRequest;
+import me.fmroz.shoppi.dto.ChangePasswordRequest;
+import me.fmroz.shoppi.dto.UpdateUserInfoRequest;
 import me.fmroz.shoppi.model.ShoppiUser;
 import me.fmroz.shoppi.service.ShoppiUserService;
 import org.springframework.http.ResponseEntity;
@@ -35,8 +38,19 @@ public class ShoppiUserController {
     }
 
     @PutMapping("/{userId}/password")
-    public ResponseEntity<Void> updatePassword(@PathVariable Long userId, @RequestBody String newPassword) {
-        shoppiUserService.updatePassword(userId, newPassword);
-        return ResponseEntity.noContent().build();
+    public ResponseEntity<Void> updatePassword(@PathVariable Long userId, @RequestBody ChangePasswordRequest changePasswordRequest) {
+        shoppiUserService.updatePassword(userId, changePasswordRequest);
+        return ResponseEntity.ok().build();
+    }
+
+    @PutMapping("/{userId}/update-info")
+    public ResponseEntity<ShoppiUser> updateUserInfo(@PathVariable Long userId, @RequestBody UpdateUserInfoRequest updateUserInfoRequest) {
+        return ResponseEntity.ok(shoppiUserService.updateUserInfo(userId, updateUserInfoRequest));
+    }
+
+    @PutMapping("/{userId}/change-email")
+    public ResponseEntity<Void> changeEmail(@PathVariable Long userId, @RequestBody ChangeEmailRequest changeEmailRequest) {
+        shoppiUserService.changeEmail(userId, changeEmailRequest);
+        return ResponseEntity.ok().build();
     }
 }
