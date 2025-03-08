@@ -9,3 +9,32 @@ html, body {
 * {
     @apply box-border;
 }
+
+@layer utilities {
+    ::-webkit-scrollbar {
+        width: 8px;
+        height: 8px;
+    }
+
+    ::-webkit-scrollbar-track {
+        background: #f1f1f1;
+        /*border-radius: 10px;*/
+    }
+
+    ::-webkit-scrollbar-thumb {
+        background: linear-gradient(to bottom, #4D55CC, #7A73D1); /* Gradient z palety motywu */
+        border-radius: 10px;
+    }
+
+    ::-webkit-scrollbar-thumb:hover {
+        background: linear-gradient(to bottom, #211C84, #4D55CC);
+    }
+
+    .dark ::-webkit-scrollbar-track {
+        background: #222;
+    }
+
+    .dark ::-webkit-scrollbar-thumb {
+        background: linear-gradient(to bottom, #7A73D1, #B5A8D5);
+    }
+}

@@ -1,6 +1,6 @@
 import React from "react";
-import { Navigate, Outlet } from "react-router-dom";
-import { useAuth } from "../context/AuthContext";
+import {Navigate, Outlet} from "react-router-dom";
+import {useUser} from "../context/UserContext";
 
 type ProtectedRouteProps = {
     allowedAccountType: "USER" | "SELLER";
@@ -8,7 +8,7 @@ type ProtectedRouteProps = {
 };
 
 const ProtectedRoute: React.FC<ProtectedRouteProps> = ({ allowedAccountType, redirectPath }) => {
-    const { user } = useAuth();
+    const {user} = useUser();
 
     if (!user || user.accountType !== allowedAccountType) {
         return <Navigate to={redirectPath} replace />;

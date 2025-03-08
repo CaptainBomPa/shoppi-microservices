@@ -16,10 +16,13 @@ const authService = {
             const refreshToken = localStorage.getItem("refreshToken");
             if (!refreshToken) throw new Error("Missing refresh token. Logging out");
 
+            //to avoid sending accessToken when refreshing. Server is immediately rejecting this accessToken
+            localStorage.setItem("accessToken", '');
             const response = await api.post(REFRESH_URL, {refreshToken});
             localStorage.setItem("accessToken", response.data.accessToken);
             return response.data.accessToken;
         } catch (error) {
+            console.log(error);
             authService.logout();
             return Promise.reject(error);
         }

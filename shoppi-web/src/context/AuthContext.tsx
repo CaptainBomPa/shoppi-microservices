@@ -1,21 +1,8 @@
-import React, {createContext, useContext, useEffect, useState} from "react";
+import React, {createContext, useContext} from "react";
 import authService from "../api/authService";
 import userService from "../api/userService";
-import companyService from "../api/companyService";
-
-export type User = {
-    id: number;
-    email: string;
-    firstName: string;
-    lastName: string;
-    accountType: "USER" | "SELLER";
-    registrationDate: string;
-    avatar?: string;
-    companyName?: string;
-};
 
 type AuthContextType = {
-    user: User | null;
     isAuthenticated: boolean;
     login: (email: string, password: string) => Promise<void>;
     logout: () => void;
@@ -39,53 +26,17 @@ export const useAuth = () => {
 };
 
 export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({children}) => {
-    const [user, setUser] = useState<User | null>(null);
-    const isAuthenticated = !!user;
-
-    useEffect(() => {
-        const fetchUser = async () => {
-            try {
-                const userData = await userService.getMe();
-
-                if (userData.accountType === "SELLER") {
-                    try {
-                        const companyData = await companyService.getCompanyInfo(userData.id);
-                        userData.companyName = companyData.companyName;
-                    } catch (error) {
-                        console.error("Could not fetch information about the company", error);
-                    }
-                }
-
-                setUser(userData);
-            } catch (error) {
-                console.error("Could not fetch information about the user", error);
-            }
-        };
-
-        if (localStorage.getItem("accessToken")) {
-            fetchUser();
-        }
-    }, []);
+    const isAuthenticated = !!localStorage.getItem("accessToken");
 
     const login = async (email: string, password: string) => {
         await authService.login(email, password);
-        const userData = await userService.getMe();
-
-        if (userData.accountType === "SELLER") {
-            try {
-                const companyData = await companyService.getCompanyInfo(userData.id);
-                userData.companyName = companyData.companyName;
-            } catch (error) {
-                console.error("Could not fetch information about the company", error);
-            }
-        }
-
-        setUser(userData);
+        window.location.reload();
     };
 
     const logout = () => {
         authService.logout();
-        setUser(null);
+        localStorage.removeItem("accessToken");
+        window.location.reload();
     };
 
     const register = async (userData: {
@@ -99,10 +50,8 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({children}
     };
 
     return (
-        <AuthContext.Provider value={{user, isAuthenticated, login, logout, register}}>
+        <AuthContext.Provider value={{isAuthenticated, login, logout, register}}>
             {children}
         </AuthContext.Provider>
     );
 };
-
-export default AuthContext;

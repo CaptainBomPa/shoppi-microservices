@@ -1,4 +1,5 @@
 import api from "./axiosInstance";
+import {GenderType} from "../types/Gender";
 
 const USER_ME_URL = "/users/me";
 const REGISTER_URL = "/users";
@@ -23,6 +24,22 @@ const userService = {
 
         const response = await api.post(REGISTER_URL, transformedData);
         return response.data;
+    },
+
+    updateUserInfo: async (userId: number, updatedInfo: { firstName: string; lastName: string; gender?: GenderType }) => {
+        const response = await api.put(`/users/${userId}/update-info`, updatedInfo);
+        return response.data;
+    },
+
+    changeEmail: async (userId: number, newEmail: string, password: string) => {
+        const response = await api.put(`/users/${userId}/change-email`, {userId, newEmail, password});
+        return response?.status === 200;
+
+    },
+
+    changePassword: async (userId: number, oldPassword: string, newPassword: string) => {
+        const response = await api.put(`/users/${userId}/password`, {oldPassword, newPassword});
+        return response?.status === 200;
     },
 };
 

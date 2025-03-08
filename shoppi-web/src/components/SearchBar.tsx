@@ -1,5 +1,5 @@
 import React, {useEffect, useState} from "react";
-import {FiRotateCcw, FiSearch, FiX} from "react-icons/fi";
+import {RotateCcw, Search, X} from "lucide-react";
 import SearchSuggestions from "./SearchSuggestions";
 import {Suggestion} from "../types/Suggestion";
 
@@ -66,8 +66,7 @@ const SearchBar = () => {
 
     return (
         <div className="relative w-full max-w-2xl mx-4">
-            <FiSearch className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-500 dark:text-gray-300 text-lg"/>
-
+            <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-500 dark:text-gray-300 text-lg"/>
             <input
                 type="text"
                 placeholder="Szukaj produktu..."
@@ -84,9 +83,9 @@ const SearchBar = () => {
                     }`}
                 >
                     {showResetIcon ? (
-                        <FiRotateCcw className="text-lg text-gray-500 dark:text-gray-300 hover:text-blue-500 transition duration-200"/>
+                        <RotateCcw className="text-lg text-gray-500 dark:text-gray-300 hover:text-blue-500 transition duration-200"/>
                     ) : (
-                        <FiX className="text-lg text-gray-500 dark:text-gray-300 hover:text-red-500 transition duration-200"/>
+                        <X className="text-lg text-gray-500 dark:text-gray-300 hover:text-red-500 transition duration-200"/>
                     )}
                 </button>
             )}
