@@ -3,8 +3,8 @@ import {Switch} from "@headlessui/react";
 import {useForm} from "react-hook-form";
 import {yupResolver} from "@hookform/resolvers/yup";
 import * as yup from "yup";
-import GradientButton from "./GradientButton";
-import {useAuth} from "../context/AuthContext";
+import GradientButton from "../GradientButton";
+import {useAuth} from "../../context/AuthContext";
 
 type RegisterDialogProps = {
     onClose: () => void;

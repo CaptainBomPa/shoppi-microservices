@@ -1,7 +1,7 @@
 import React, {useState} from "react";
-import LoginDialog from "./LoginDialog";
-import RegisterDialog from "./RegisterDialog";
-import CustomAlert from "./CustomAlert";
+import LoginDialog from "../dialog/LoginDialog";
+import RegisterDialog from "../dialog/RegisterDialog";
+import CustomAlert from "../CustomAlert";
 
 const LoginButton = () => {
     const [isLoginOpen, setIsLoginOpen] = useState(false);

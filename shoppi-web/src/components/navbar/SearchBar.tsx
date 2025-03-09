@@ -1,7 +1,7 @@
 import React, {useEffect, useState} from "react";
 import {RotateCcw, Search, X} from "lucide-react";
 import SearchSuggestions from "./SearchSuggestions";
-import {Suggestion} from "../types/Suggestion";
+import {Suggestion} from "../../types/Suggestion";
 
 const SearchBar = () => {
     const [searchQuery, setSearchQuery] = useState("");

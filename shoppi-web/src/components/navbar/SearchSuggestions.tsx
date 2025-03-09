@@ -1,5 +1,5 @@
 import React from "react";
-import {Suggestion} from "../types/Suggestion";
+import {Suggestion} from "../../types/Suggestion";
 
 type Props = {
     suggestions: Suggestion[];

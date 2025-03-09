@@ -1,6 +1,6 @@
 import React from "react";
-import UserDropdown from "./userMenu/UserDropdown";
-import SettingsDropdown from "./userMenu/SettingsDropdown";
+import UserDropdown from "../userMenu/UserDropdown";
+import SettingsDropdown from "../userMenu/SettingsDropdown";
 
 const UserMenu = () => {
     return (

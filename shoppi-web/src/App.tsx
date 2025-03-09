@@ -2,7 +2,7 @@ import React from "react";
 import {BrowserRouter as Router, Route, Routes} from "react-router-dom";
 import {ThemeProvider} from "./context/ThemeContext";
 import {AuthProvider} from "./context/AuthContext";
-import Navbar from "./components/Navbar";
+import Navbar from "./components/navbar/Navbar";
 import Home from "./pages/Home";
 import MyOrders from "./pages/MyOrders";
 import MyAddresses from "./pages/MyAddresses";

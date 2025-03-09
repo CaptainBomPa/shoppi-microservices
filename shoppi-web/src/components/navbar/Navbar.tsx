@@ -2,7 +2,7 @@ import React from "react";
 import {Link} from "react-router-dom";
 import SearchBar from "./SearchBar";
 import ThemeToggle from "./ThemeToggle";
-import {useAuth} from "../context/AuthContext";
+import {useAuth} from "../../context/AuthContext";
 import UserMenu from "./UserMenu";
 import LoginButton from "./LoginButton";
 

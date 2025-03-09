@@ -1,6 +1,6 @@
 import React, {useEffect, useState} from "react";
-import {useAuth} from "../context/AuthContext";
-import GradientButton from "./GradientButton";
+import {useAuth} from "../../context/AuthContext";
+import GradientButton from "../GradientButton";
 
 type LoginDialogProps = {
     onClose: () => void;
