@@ -16,6 +16,7 @@ api.interceptors.request.use(
         if (accessToken) {
             config.headers.Authorization = `Bearer ${accessToken}`;
         }
+        console.log(config);
         return config;
     },
     (error) => Promise.reject(error)

@@ -10,7 +10,7 @@ const UserDropdown = () => {
         <Menu as="div" className="relative">
             <Menu.Button className="flex items-center space-x-2 p-2 border border-light dark:border-accent rounded-lg hover:bg-gray-100 dark:hover:bg-gray-700 transition">
                 <span className="text-primary dark:text-light">
-                    {user?.accountType === "SELLER" ? user.companyName || user.email : `${user?.firstName} ${user?.lastName}`}
+                    {user?.accountType === "SELLER" ? user.companyInfo?.companyName || user.email : `${user?.firstName} ${user?.lastName}`}
                 </span>
             </Menu.Button>
 

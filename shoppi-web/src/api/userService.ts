@@ -1,12 +1,14 @@
 import api from "./axiosInstance";
 import {GenderType} from "../types/Gender";
 
-const USER_ME_URL = "/users/me";
 const REGISTER_URL = "/users";
 
 const userService = {
     getMe: async () => {
-        const response = await api.get(USER_ME_URL);
+        const userId = localStorage.getItem("userId");
+        if (!userId) throw new Error("User ID not found. User might be logged out.");
+
+        const response = await api.get(`/users/${userId}`);
         return response.data;
     },
 
@@ -26,18 +28,26 @@ const userService = {
         return response.data;
     },
 
-    updateUserInfo: async (userId: number, updatedInfo: { firstName: string; lastName: string; gender?: GenderType }) => {
+    updateUserInfo: async (updatedInfo: { firstName: string; lastName: string; gender?: GenderType }) => {
+        const userId = localStorage.getItem("userId");
+        if (!userId) throw new Error("User ID not found. User might be logged out.");
+
         const response = await api.put(`/users/${userId}/update-info`, updatedInfo);
         return response.data;
     },
 
-    changeEmail: async (userId: number, newEmail: string, password: string) => {
+    changeEmail: async (newEmail: string, password: string) => {
+        const userId = localStorage.getItem("userId");
+        if (!userId) throw new Error("User ID not found. User might be logged out.");
+
         const response = await api.put(`/users/${userId}/change-email`, {userId, newEmail, password});
         return response?.status === 200;
-
     },
 
-    changePassword: async (userId: number, oldPassword: string, newPassword: string) => {
+    changePassword: async (oldPassword: string, newPassword: string) => {
+        const userId = localStorage.getItem("userId");
+        if (!userId) throw new Error("User ID not found. User might be logged out.");
+
         const response = await api.put(`/users/${userId}/password`, {oldPassword, newPassword});
         return response?.status === 200;
     },

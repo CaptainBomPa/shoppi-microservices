@@ -62,7 +62,7 @@ const ChangeEmailForm: React.FC<{ showAlert: (message: string, type: "success" |
                 )}
             </div>
 
-            <button type="submit" className="w-full mt-4 p-3 bg-gradient-to-r from-[#4D55CC] to-[#7A73D1] text-white rounded-lg transition duration-300 hover:opacity-90">
+            <button type="submit" className="w-full mt-4 p-3 bg-gradient-to-r from-[#4D55CC] to-[#7A73D1] text-white rounded-lg transition duration-300 hover:opacity-80">
                 Zapisz
             </button>
         </form>
