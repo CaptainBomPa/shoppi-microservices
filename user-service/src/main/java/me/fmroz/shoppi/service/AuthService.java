@@ -38,7 +38,7 @@ public class AuthService {
         user.setRefreshToken(refreshToken);
         userRepository.save(user);
 
-        return ResponseEntity.ok(new LoginResponse(accessToken, refreshToken));
+        return ResponseEntity.ok(new LoginResponse(user.getId(), accessToken, refreshToken));
     }
 
     public ResponseEntity<RefreshTokenResponse> refreshToken(RefreshTokenRequest request) {

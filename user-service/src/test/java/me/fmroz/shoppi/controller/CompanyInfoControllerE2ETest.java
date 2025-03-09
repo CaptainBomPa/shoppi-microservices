@@ -68,7 +68,8 @@ public class CompanyInfoControllerE2ETest {
                 .city("New York")
                 .street("Wall Street 1")
                 .country("USA")
-                .phone("+123456789")
+                .phone("123456789")
+                .countryCode("+48")
                 .build();
 
         mockMvc.perform(post("/company-info/" + testUser.getId())
@@ -82,7 +83,8 @@ public class CompanyInfoControllerE2ETest {
         assertThat(savedCompanyInfo.getCity()).isEqualTo("New York");
         assertThat(savedCompanyInfo.getStreet()).isEqualTo("Wall Street 1");
         assertThat(savedCompanyInfo.getCountry()).isEqualTo("USA");
-        assertThat(savedCompanyInfo.getPhone()).isEqualTo("+123456789");
+        assertThat(savedCompanyInfo.getPhone()).isEqualTo("123456789");
+        assertThat(savedCompanyInfo.getCountryCode()).isEqualTo("+48");
     }
 
     @Test
@@ -95,7 +97,8 @@ public class CompanyInfoControllerE2ETest {
                 .city("New York")
                 .street("Wall Street 1")
                 .country("USA")
-                .phone("+123456789")
+                .phone("123456789")
+                .countryCode("+48")
                 .build());
         userRepository.save(persistedUser);
 
@@ -105,7 +108,8 @@ public class CompanyInfoControllerE2ETest {
                 .city("Los Angeles")
                 .street("Hollywood Blvd 20")
                 .country("USA")
-                .phone("+1987654321")
+                .phone("1987654321")
+                .countryCode("+48")
                 .build();
 
         mockMvc.perform(post("/company-info/" + testUser.getId())
@@ -126,7 +130,8 @@ public class CompanyInfoControllerE2ETest {
                         .city("New York")
                         .street("Wall Street 1")
                         .country("USA")
-                        .phone("+123456789")
+                        .phone("123456789")
+                        .countryCode("+48")
                         .build()
         );
 
@@ -136,7 +141,8 @@ public class CompanyInfoControllerE2ETest {
                 .city("San Francisco")
                 .street("Market Street 20")
                 .country("USA")
-                .phone("+1987654321")
+                .phone("1987654321")
+                .countryCode("+48")
                 .build();
 
         mockMvc.perform(put("/company-info/" + testUser.getId())
@@ -150,6 +156,7 @@ public class CompanyInfoControllerE2ETest {
         assertThat(updatedFromDb.getCity()).isEqualTo("San Francisco");
         assertThat(updatedFromDb.getStreet()).isEqualTo("Market Street 20");
         assertThat(updatedFromDb.getCountry()).isEqualTo("USA");
-        assertThat(updatedFromDb.getPhone()).isEqualTo("+1987654321");
+        assertThat(updatedFromDb.getPhone()).isEqualTo("1987654321");
+        assertThat(updatedFromDb.getCountryCode()).isEqualTo("+48");
     }
 }

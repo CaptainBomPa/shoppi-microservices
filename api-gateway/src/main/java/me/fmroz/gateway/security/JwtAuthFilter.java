@@ -9,11 +9,17 @@ import me.fmroz.gateway.common.PublicEndpoints;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.server.reactive.ServerHttpRequest;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.context.ReactiveSecurityContextHolder;
+import org.springframework.security.core.context.SecurityContext;
+import org.springframework.security.core.context.SecurityContextImpl;
 import org.springframework.stereotype.Component;
 import org.springframework.web.server.ServerWebExchange;
 import org.springframework.web.server.WebFilter;
 import org.springframework.web.server.WebFilterChain;
 import reactor.core.publisher.Mono;
+
+import java.util.Collections;
 
 @Component
 @Slf4j
@@ -25,14 +31,15 @@ public class JwtAuthFilter implements WebFilter {
     public Mono<Void> filter(ServerWebExchange exchange, WebFilterChain chain) {
         ServerHttpRequest request = exchange.getRequest();
         String path = request.getPath().toString();
+        String authHeader = request.getHeaders().getFirst(HttpHeaders.AUTHORIZATION);
+        String originHeader = request.getHeaders().getFirst("Origin");
 
         if (isPublicEndpoint(path)) {
             return chain.filter(exchange);
         }
 
-        String authHeader = request.getHeaders().getFirst(HttpHeaders.AUTHORIZATION);
         if (authHeader == null || !authHeader.startsWith(BEARER_PREFIX)) {
-            log.warn("Missing or invalid Authorization header");
+            log.warn("Missing or invalid Bearer header");
             exchange.getResponse().setStatusCode(HttpStatus.UNAUTHORIZED);
             return exchange.getResponse().setComplete();
         }
@@ -45,15 +52,21 @@ public class JwtAuthFilter implements WebFilter {
             AuthUserDetails userDetails = new AuthUserDetails(username, role);
 
             if (!JwtUtil.validateToken(token, userDetails)) {
-                log.warn("Invalid or expired token");
+                log.warn("JWT token is invalid or expired");
                 exchange.getResponse().setStatusCode(HttpStatus.UNAUTHORIZED);
                 return exchange.getResponse().setComplete();
             }
 
-            return chain.filter(exchange);
+            UsernamePasswordAuthenticationToken authentication =
+                    new UsernamePasswordAuthenticationToken(userDetails, null, Collections.emptyList());
+
+            SecurityContext securityContext = new SecurityContextImpl(authentication);
+
+            return chain.filter(exchange)
+                    .contextWrite(ReactiveSecurityContextHolder.withSecurityContext(Mono.just(securityContext)));
 
         } catch (JwtException e) {
-            log.error("Token validation error: {}", e.getMessage());
+            log.error("Issue when validating JWT Token: {}", e.getMessage());
             exchange.getResponse().setStatusCode(HttpStatus.UNAUTHORIZED);
             return exchange.getResponse().setComplete();
         }

@@ -13,6 +13,11 @@ public class CompanyInfoController {
 
     private final CompanyInfoService companyInfoService;
 
+    @GetMapping("/{userId}")
+    public ResponseEntity<CompanyInfo> getCompanyInfo(@PathVariable Long userId) {
+        return ResponseEntity.ok(companyInfoService.findCompanyInfoById(userId));
+    }
+
     @PostMapping("/{userId}")
     public ResponseEntity<CompanyInfo> addCompanyInfo(@PathVariable Long userId, @RequestBody CompanyInfo companyInfo) {
         return ResponseEntity.ok(companyInfoService.addCompanyInfo(userId, companyInfo));

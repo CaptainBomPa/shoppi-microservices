@@ -1,5 +1,6 @@
 package me.fmroz.shoppi.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Pattern;
@@ -20,6 +21,7 @@ public class CompanyInfo {
     @OneToOne
     @MapsId
     @JoinColumn(name = "id")
+    @JsonIgnore
     private ShoppiUser user;
 
     @Column(nullable = false)
@@ -45,4 +47,8 @@ public class CompanyInfo {
     @Column(nullable = false)
     @Size(min = 9, max = 15, message = "Phone number must be between 9 and 15 digits")
     private String phone;
+
+    @Column(nullable = false)
+    @Size(min = 2, max = 5, message = "Country code must be between 2 and 5 characters (e.g. +48)")
+    private String countryCode;
 }

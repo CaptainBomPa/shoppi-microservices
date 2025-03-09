@@ -50,7 +50,6 @@ dependencies {
     annotationProcessor 'org.projectlombok:lombok:1.18.26'
     testImplementation 'org.springframework.boot:spring-boot-starter-test:3.4.3'
     testImplementation 'org.springframework.amqp:spring-rabbit-test:3.2.3'
-    testImplementation 'org.springframework.security:spring-security-test:6.4.3'
     testRuntimeOnly 'org.junit.platform:junit-platform-launcher:1.10.0'
 
     testImplementation 'org.springframework.boot:spring-boot-starter-web:3.4.3'

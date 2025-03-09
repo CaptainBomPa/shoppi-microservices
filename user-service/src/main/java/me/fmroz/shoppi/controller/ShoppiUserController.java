@@ -7,7 +7,6 @@ import me.fmroz.shoppi.dto.UpdateUserInfoRequest;
 import me.fmroz.shoppi.model.ShoppiUser;
 import me.fmroz.shoppi.service.ShoppiUserService;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
@@ -16,11 +15,6 @@ import org.springframework.web.bind.annotation.*;
 public class ShoppiUserController {
 
     private final ShoppiUserService shoppiUserService;
-
-    @GetMapping("/me")
-    public ResponseEntity<ShoppiUser> me(Authentication authentication) {
-        return ResponseEntity.ok(shoppiUserService.getUserByEmail(authentication.getName()));
-    }
 
     @PostMapping
     public ResponseEntity<ShoppiUser> createUser(@RequestBody ShoppiUser user) {

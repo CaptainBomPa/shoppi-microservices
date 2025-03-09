@@ -3,6 +3,7 @@ package me.fmroz.shoppi.service;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import me.fmroz.shoppi.exception.CompanyInfoAlreadyExistsException;
+import me.fmroz.shoppi.exception.CompanyInfoNotFoundException;
 import me.fmroz.shoppi.exception.DifferentUserShippingInfoException;
 import me.fmroz.shoppi.exception.UserNotFoundException;
 import me.fmroz.shoppi.model.CompanyInfo;
@@ -31,6 +32,10 @@ public class CompanyInfoService {
         return companyInfoRepository.save(companyInfo);
     }
 
+    @Transactional
+    public CompanyInfo findCompanyInfoById(Long companyInfoId) {
+        return companyInfoRepository.findById(companyInfoId).orElseThrow(() -> new CompanyInfoNotFoundException("Company Info with ID " + companyInfoId + " not found"));
+    }
 
     @Transactional
     public CompanyInfo updateCompanyInfo(Long userId, CompanyInfo updatedCompanyInfo) {
