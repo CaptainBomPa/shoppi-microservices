@@ -61,6 +61,9 @@ public class CompanyInfoService {
         if (StringUtils.hasText(updatedCompanyInfo.getPhone())) {
             existingCompanyInfo.setPhone(updatedCompanyInfo.getPhone());
         }
+        if (StringUtils.hasText(updatedCompanyInfo.getCountryCode())) {
+            existingCompanyInfo.setCountryCode(updatedCompanyInfo.getCountryCode());
+        }
         existingCompanyInfo.setUser(user);
 
         return companyInfoRepository.save(existingCompanyInfo);

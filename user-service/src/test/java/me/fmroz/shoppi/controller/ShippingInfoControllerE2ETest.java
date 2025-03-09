@@ -11,7 +11,6 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.context.annotation.Import;
 import org.springframework.http.MediaType;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.web.servlet.MockMvc;
@@ -61,6 +60,8 @@ public class ShippingInfoControllerE2ETest {
     @Test
     void shouldAddNewShippingInfo() throws Exception {
         ShippingInfo shippingInfo = ShippingInfo.builder()
+                .firstName("John")
+                .lastName("Doe")
                 .postalCode("12-345")
                 .city("New York")
                 .street("5th Avenue 10")
@@ -75,6 +76,8 @@ public class ShippingInfoControllerE2ETest {
                 .andExpect(status().isOk());
 
         ShippingInfo savedShippingInfo = shippingInfoRepository.findAll().get(0);
+        assertThat(savedShippingInfo.getFirstName()).isEqualTo("John");
+        assertThat(savedShippingInfo.getLastName()).isEqualTo("Doe");
         assertThat(savedShippingInfo.getPostalCode()).isEqualTo("12-345");
         assertThat(savedShippingInfo.getCity()).isEqualTo("New York");
         assertThat(savedShippingInfo.getStreet()).isEqualTo("5th Avenue 10");
@@ -89,21 +92,25 @@ public class ShippingInfoControllerE2ETest {
         ShippingInfo existingShippingInfo = shippingInfoRepository.save(
                 ShippingInfo.builder()
                         .user(testUser)
+                        .firstName("John")
+                        .lastName("Doe")
                         .postalCode("12-345")
                         .city("New York")
                         .street("5th Avenue 10")
                         .country("USA")
-                        .phone("+1234567890")
+                        .phone("1234567890")
                         .countryCode("+1")
                         .build()
         );
 
         ShippingInfo updatedShippingInfo = ShippingInfo.builder()
+                .firstName("John")
+                .lastName("Doe")
                 .postalCode("98-765")
                 .city("Los Angeles")
                 .street("Hollywood Blvd 20")
                 .country("USA")
-                .phone("+1987654321")
+                .phone("1987654321")
                 .countryCode("+1")
                 .build();
 
@@ -113,17 +120,21 @@ public class ShippingInfoControllerE2ETest {
                 .andExpect(status().isOk());
 
         ShippingInfo updatedFromDb = shippingInfoRepository.findById(existingShippingInfo.getId()).orElseThrow();
+        assertThat(updatedFromDb.getFirstName()).isEqualTo("John");
+        assertThat(updatedFromDb.getLastName()).isEqualTo("Doe");
         assertThat(updatedFromDb.getPostalCode()).isEqualTo("98-765");
         assertThat(updatedFromDb.getCity()).isEqualTo("Los Angeles");
         assertThat(updatedFromDb.getStreet()).isEqualTo("Hollywood Blvd 20");
         assertThat(updatedFromDb.getCountry()).isEqualTo("USA");
-        assertThat(updatedFromDb.getPhone()).isEqualTo("+1987654321");
+        assertThat(updatedFromDb.getPhone()).isEqualTo("1987654321");
         assertThat(updatedFromDb.getCountryCode()).isEqualTo("+1");
     }
 
     @Test
     void shouldFailWhenMissingFieldsInShippingInfo() throws Exception {
         ShippingInfo incompleteShippingInfo = ShippingInfo.builder()
+                .firstName("John")
+                .lastName("Doe")
                 .postalCode("")
                 .city("Los Angeles")
                 .street("")
@@ -141,6 +152,8 @@ public class ShippingInfoControllerE2ETest {
     @Test
     void shouldFailWhenAddingShippingInfoForNonExistingUser() throws Exception {
         ShippingInfo shippingInfo = ShippingInfo.builder()
+                .firstName("John")
+                .lastName("Doe")
                 .postalCode("12-345")
                 .city("New York")
                 .street("5th Avenue 10")
@@ -161,6 +174,8 @@ public class ShippingInfoControllerE2ETest {
         ShippingInfo existingShippingInfo = shippingInfoRepository.save(
                 ShippingInfo.builder()
                         .user(testUser)
+                        .firstName("John")
+                        .lastName("Doe")
                         .postalCode("12-345")
                         .city("New York")
                         .street("5th Avenue 10")

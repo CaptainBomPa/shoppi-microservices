@@ -1,6 +1,8 @@
 package me.fmroz.shoppi.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Pattern;
 import jakarta.validation.constraints.Size;
 import lombok.*;
@@ -19,7 +21,16 @@ public class ShippingInfo {
 
     @ManyToOne
     @JoinColumn(nullable = false)
+    @JsonIgnore
     private ShoppiUser user;
+
+    @Column(nullable = false)
+    @NotBlank(message = "First name is required")
+    private String firstName;
+
+    @Column(nullable = false)
+    @NotBlank(message = "Last name is required")
+    private String lastName;
 
     @Column(nullable = false)
     @Pattern(regexp = "\\d{2}-\\d{3}", message = "Postal code must match format XX-XXX")

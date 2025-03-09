@@ -30,6 +30,12 @@ public class ShippingInfoService {
     public ShippingInfo updateShippingInfo(Long userId, Long shippingInfoId, ShippingInfo updatedShippingInfo) {
         ShippingInfo existingShippingInfo = validateUserOwnership(userId, shippingInfoId);
 
+        if (StringUtils.hasText(updatedShippingInfo.getFirstName())) {
+            existingShippingInfo.setFirstName(updatedShippingInfo.getFirstName());
+        }
+        if (StringUtils.hasText(updatedShippingInfo.getLastName())) {
+            existingShippingInfo.setLastName(updatedShippingInfo.getLastName());
+        }
         if (StringUtils.hasText(updatedShippingInfo.getPostalCode())) {
             existingShippingInfo.setPostalCode(updatedShippingInfo.getPostalCode());
         }
