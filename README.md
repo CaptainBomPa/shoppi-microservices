@@ -83,12 +83,15 @@ This project is structured as a **microservices-based system**, where each servi
 
 ## 🚀 Running the Project
 
-### 1️⃣ **Start Backend Services**
+### 1️⃣ **Configure Environment Variables**
+Before running the project, set up the required environment variables. See [Environment Setup](docs/EnvironmentSetup.md) for details.
+
+### 2️⃣ **Start Backend Services**
 ```sh
 docker-compose up -d
 ```
 
-### 2️⃣ **Run Frontend Application**
+### 3️⃣ **Run Frontend Application**
 ```sh
 cd shoppi-web
 npm install
