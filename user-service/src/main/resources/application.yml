@@ -34,7 +34,7 @@ management:
   endpoints:
     web:
       exposure:
-        include: "*"
+        include: "prometheus, health, info"
   tracing:
     enabled: true
     sampling:

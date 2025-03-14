@@ -2,21 +2,6 @@ version: '3.8'
 
 services:
 
-  postgres-user-service:
-    image: postgres:15
-    container_name: postgres-user-service
-    restart: always
-    environment:
-      POSTGRES_USER: user_admin
-      POSTGRES_PASSWORD: user_password
-      POSTGRES_DB: user_db
-    ports:
-      - "5433:5432"
-    volumes:
-      - user_postgres_data:/var/lib/postgresql/data
-    networks:
-      - shoppi_network
-
   rabbitmq:
     image: rabbitmq:3-management
     container_name: rabbitmq
@@ -27,8 +12,11 @@ services:
     ports:
       - "5672:5672"
       - "15672:15672"
+      - "15692:15692"
     networks:
       - shoppi_network
+    command: >
+      sh -c "rabbitmq-plugins enable rabbitmq_prometheus && rabbitmq-server"
 
   eureka:
     image: steeltoeoss/eureka-server
@@ -54,10 +42,15 @@ services:
     image: grafana/grafana
     container_name: grafana
     restart: always
+    environment:
+      - GF_SECURITY_ADMIN_USER=admin
+      - GF_SECURITY_ADMIN_PASSWORD=admin
+      - GF_USERS_ALLOW_SIGN_UP=false
     ports:
       - "3000:3000"
     volumes:
       - grafana_data:/var/lib/grafana
+      - ./grafana/provisioning:/etc/grafana/provisioning
     networks:
       - shoppi_network
 
@@ -76,17 +69,56 @@ services:
     container_name: promtail
     restart: always
     volumes:
-      - /var/log:/var/log
+      - /var/run/docker.sock:/var/run/docker.sock
       - ./promtail-config.yml:/etc/promtail/config.yml
     networks:
       - shoppi_network
+
 
   zipkin:
     image: openzipkin/zipkin
     container_name: zipkin
     restart: always
+    environment:
+      - STORAGE_TYPE=mem
+      - QUERY_PORT=9411
+      - JAVA_OPTS=-Dzipkin.metrics.prometheus.enabled=true
     ports:
       - "9411:9411"
+    networks:
+      - shoppi_network
+
+  api-gateway:
+    build:
+      context: .
+      dockerfile: api-gateway/Dockerfile
+    container_name: api-gateway
+    restart: always
+    depends_on:
+      - eureka
+    environment:
+      SPRING_PROFILES_ACTIVE: docker
+      JWT_SECRET: ${JWT_SECRET}
+    volumes:
+      - maven_local:/root/.m2
+      - ./.env:/app/.env
+    ports:
+      - "8080:8080"
+    networks:
+      - shoppi_network
+
+  postgres-user-service:
+    image: postgres:15
+    container_name: postgres-user-service
+    restart: always
+    environment:
+      POSTGRES_USER: user_admin
+      POSTGRES_PASSWORD: user_password
+      POSTGRES_DB: user_db
+    ports:
+      - "5433:5432"
+    volumes:
+      - user_postgres_data:/var/lib/postgresql/data
     networks:
       - shoppi_network
 
@@ -108,25 +140,6 @@ services:
     volumes:
       - maven_local:/root/.m2
       - ./user-service/.env:/app/.env
-    networks:
-      - shoppi_network
-
-  api-gateway:
-    build:
-      context: .
-      dockerfile: api-gateway/Dockerfile
-    container_name: api-gateway
-    restart: always
-    depends_on:
-      - eureka
-    environment:
-      SPRING_PROFILES_ACTIVE: docker
-      JWT_SECRET: ${JWT_SECRET}
-    volumes:
-      - maven_local:/root/.m2
-      - ./.env:/app/.env
-    ports:
-      - "8080:8080"
     networks:
       - shoppi_network
 

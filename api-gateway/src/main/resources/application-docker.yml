@@ -36,7 +36,7 @@ management:
   endpoints:
     web:
       exposure:
-        include: "*"
+        include: "prometheus, health, info"
   endpoint:
     gateway:
       access: unrestricted
