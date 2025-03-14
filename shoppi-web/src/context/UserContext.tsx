@@ -1,6 +1,21 @@
 import React, {createContext, useContext, useEffect, useState} from "react";
 import userService from "../api/userService";
+import shippingService from "../api/shippingService";
 import {GenderType} from "../types/Gender";
+
+export type ShippingAddress = {
+    id: number;
+    firstName: string;
+    lastName: string;
+    postalCode: string;
+    city: string;
+    street: string;
+    country: string;
+    countryCode: string;
+    phone: string;
+};
+
+export type ShippingAddressFormData = Omit<ShippingAddress, "id">;
 
 export type User = {
     id: number;
@@ -11,6 +26,7 @@ export type User = {
     registrationDate: string;
     avatar?: string;
     gender: GenderType;
+    shippingAddresses?: ShippingAddress[];
     companyInfo?: {
         companyName: string;
         postalCode: string;
@@ -29,6 +45,9 @@ type UserContextType = {
     updateUserInfo: (updatedInfo: { firstName: string; lastName: string; gender?: GenderType }) => Promise<void>;
     changeEmail: (newEmail: string, password: string) => Promise<boolean>;
     changePassword: (oldPassword: string, newPassword: string) => Promise<boolean>;
+    addShippingAddress: (address: Omit<ShippingAddress, "id">) => Promise<void>;
+    updateShippingAddress: (id: number, address: Omit<ShippingAddress, "id">) => Promise<void>;
+    deleteShippingAddress: (id: number) => Promise<void>;
 };
 
 const UserContext = createContext<UserContextType | undefined>(undefined);
@@ -74,7 +93,6 @@ export const UserProvider: React.FC<{ children: React.ReactNode }> = ({children}
             return true;
         }
         return false;
-
     };
 
     const changePassword = async (oldPassword: string, newPassword: string) => {
@@ -84,13 +102,41 @@ export const UserProvider: React.FC<{ children: React.ReactNode }> = ({children}
             localStorage.removeItem("accessToken");
             window.location.reload();
             return true;
-        } else {
-            return false;
         }
+        return false;
+    };
+
+    const addShippingAddress = async (address: Omit<ShippingAddress, "id">) => {
+        if (!user) return;
+        await shippingService.addShippingInfo(user.id, address);
+        await refreshUser();
+    };
+
+    const updateShippingAddress = async (id: number, address: Omit<ShippingAddress, "id">) => {
+        if (!user) return;
+        await shippingService.updateShippingInfo(user.id, id, address);
+        await refreshUser();
+    };
+
+    const deleteShippingAddress = async (id: number) => {
+        if (!user) return;
+        await shippingService.deleteShippingInfo(user.id, id);
+        await refreshUser();
     };
 
     return (
-        <UserContext.Provider value={{user, refreshUser, updateUserInfo, changeEmail, changePassword}}>
+        <UserContext.Provider
+            value={{
+                user,
+                refreshUser,
+                updateUserInfo,
+                changeEmail,
+                changePassword,
+                addShippingAddress,
+                updateShippingAddress,
+                deleteShippingAddress,
+            }}
+        >
             {children}
         </UserContext.Provider>
     );

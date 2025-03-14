@@ -22,19 +22,23 @@ function App() {
                         <div className="min-h-screen font-sans bg-white dark:bg-gray-900 text-primary dark:text-light pt-16">
                             <Navbar/>
                             <Routes>
-                            <Route path="/" element={<Home />} />
+                                <Route path="/" element={<Home/>}/>
 
-                                <Route element={<ProtectedRoute allowedAccountType="USER" redirectPath="/"/>}>
+                                <Route element={<ProtectedRoute allowedAccountTypes={["USER"]} redirectPath="/"/>}>
                                     <Route path="/my-orders" element={<MyOrders/>}/>
-                                    <Route path="/my-addresses" element={<MyAddresses/>}/>
                                     <Route path="/favourites" element={<Favourites/>}/>
                                     <Route path="/user-settings" element={<UserSettings/>}/>
                                 </Route>
 
-                                <Route element={<ProtectedRoute allowedAccountType="SELLER" redirectPath="/"/>}>
+                                <Route element={<ProtectedRoute allowedAccountTypes={["SELLER"]} redirectPath="/"/>}>
                                     <Route path="/my-offers" element={<MyOffers/>}/>
                                     <Route path="/company-settings" element={<CompanySettings/>}/>
                                 </Route>
+
+                                <Route element={<ProtectedRoute allowedAccountTypes={["USER", "SELLER"]} redirectPath="/"/>}>
+                                    <Route path="/my-addresses" element={<MyAddresses/>}/>
+                                </Route>
+
                             </Routes>
                         </div>
                     </Router>

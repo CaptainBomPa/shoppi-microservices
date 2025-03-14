@@ -42,11 +42,18 @@ const UserDropdown = () => {
                             </Menu.Item>
                         </>
                     ) : (
-                        <Menu.Item>
-                            <Link to="/my-offers" className="block px-4 py-2 text-gray-800 dark:text-gray-200 hover:bg-gray-100 dark:hover:bg-gray-700">
-                                Moje oferty
-                            </Link>
-                        </Menu.Item>
+                        <>
+                            <Menu.Item>
+                                <Link to="/my-addresses" className="block px-4 py-2 text-gray-800 dark:text-gray-200 hover:bg-gray-100 dark:hover:bg-gray-700">
+                                    Moje adresy
+                                </Link>
+                            </Menu.Item>
+                            <Menu.Item>
+                                <Link to="/my-offers" className="block px-4 py-2 text-gray-800 dark:text-gray-200 hover:bg-gray-100 dark:hover:bg-gray-700">
+                                    Moje oferty
+                                </Link>
+                            </Menu.Item>
+                        </>
                     )}
                 </Menu.Items>
             </Transition>
