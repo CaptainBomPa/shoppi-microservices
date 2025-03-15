@@ -61,6 +61,33 @@
       ],
       "title": "API Gateway Logs",
       "type": "logs"
+    },
+    {
+      "datasource": "Loki",
+      "fieldConfig": {
+        "defaults": {},
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 10,
+        "w": 24,
+        "x": 0,
+        "y": 20
+      },
+      "id": 3,
+      "options": {
+        "enableLogDetails": true,
+        "showLabels": true,
+        "showTime": true
+      },
+      "targets": [
+        {
+          "expr": "{job=\"product-service\"}",
+          "refId": "C"
+        }
+      ],
+      "title": "Product Service Logs",
+      "type": "logs"
     }
   ],
   "refresh": "5s",

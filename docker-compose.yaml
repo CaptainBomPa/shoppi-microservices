@@ -143,11 +143,47 @@ services:
     networks:
       - shoppi_network
 
+  postgres-product-service:
+    image: postgres:15
+    container_name: postgres-product-service
+    restart: always
+    environment:
+      POSTGRES_USER: product_admin
+      POSTGRES_PASSWORD: product_password
+      POSTGRES_DB: product_db
+    ports:
+      - "5434:5432"
+    volumes:
+      - product_postgres_data:/var/lib/postgresql/data
+    networks:
+      - shoppi_network
+
+  product-service:
+    build:
+      context: .
+      dockerfile: product-service/Dockerfile
+    container_name: product-service
+    restart: always
+    depends_on:
+      - postgres-product-service
+      - eureka
+      - rabbitmq
+    environment:
+      SPRING_PROFILES_ACTIVE: docker
+      JWT_SECRET: ${JWT_SECRET}
+    ports:
+      - "8082:8082"
+    volumes:
+      - maven_local:/root/.m2
+      - ./product-service/.env:/app/.env
+    networks:
+      - shoppi_network
+
 volumes:
   user_postgres_data:
+  product_postgres_data:
   grafana_data:
   maven_local:
 
 networks:
   shoppi_network:
-

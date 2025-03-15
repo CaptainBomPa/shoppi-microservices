@@ -1,0 +1,49 @@
+server:
+  port: 8082
+  servlet:
+    context-path: /api/v1
+
+spring:
+  jpa:
+    hibernate:
+      ddl-auto: create
+
+  application:
+    name: product-service
+
+  datasource:
+    url: jdbc:postgresql://localhost:5434/product_db
+    username: product_admin
+    password: product_password
+    driver-class-name: org.postgresql.Driver
+
+  rabbitmq:
+    host: localhost
+    port: 5672
+    username: guest
+    password: guest
+
+eureka:
+  client:
+    service-url:
+      defaultZone: http://localhost:8761/eureka/
+  instance:
+    prefer-ip-address: true
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: "prometheus, health, info"
+  tracing:
+    enabled: true
+    sampling:
+      probability: 1.0
+  zipkin:
+    tracing:
+      endpoint: http://localhost:9411/api/v2/spans
+
+logging:
+  pattern:
+    console: "%d{yyyy-MM-dd'T'HH:mm:ss.SSSXXX} %-5level [%thread] %logger{36} - %msg%n"
+

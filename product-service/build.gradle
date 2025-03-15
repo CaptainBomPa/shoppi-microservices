@@ -4,8 +4,8 @@ plugins {
     id 'io.spring.dependency-management' version '1.1.7'
 }
 
-group = 'me.fmroz'
-version = '1.0.1'
+group = 'me.fmroz.shoppi.product'
+version = '1.0.0'
 
 java {
     toolchain {
@@ -44,17 +44,14 @@ dependencies {
     compileOnly 'org.projectlombok:lombok:1.18.26'
     developmentOnly 'org.springframework.boot:spring-boot-devtools:3.4.3'
     runtimeOnly 'org.postgresql:postgresql:42.6.0'
-    runtimeOnly 'io.jsonwebtoken:jjwt-impl:0.11.5'
-    runtimeOnly 'io.jsonwebtoken:jjwt-jackson:0.11.5'
+
     annotationProcessor 'org.springframework.boot:spring-boot-configuration-processor:3.4.3'
     annotationProcessor 'org.projectlombok:lombok:1.18.26'
     testImplementation 'org.springframework.boot:spring-boot-starter-test:3.4.3'
     testImplementation 'org.springframework.amqp:spring-rabbit-test:3.2.3'
     testRuntimeOnly 'org.junit.platform:junit-platform-launcher:1.10.0'
-
     testImplementation 'org.springframework.boot:spring-boot-starter-web:3.4.3'
     testImplementation 'com.h2database:h2:2.3.232'
-    implementation 'com.fasterxml.jackson.core:jackson-databind:2.18.3'
 }
 
 dependencyManagement {
