@@ -1,3 +1,15 @@
+#################
+# APP PROPERTIES
+#################
+
+app:
+  category:
+    populate: true
+
+###########################
+# SPRING RELATED PROPERTIES
+###########################
+
 server:
   port: 8082
   servlet:
