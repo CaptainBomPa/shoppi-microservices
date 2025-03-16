@@ -2,7 +2,7 @@
 
 > 🚧 **Project Status: IN PROGRESS** 🚧
 >
-> **Progress:** `🟩⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜` **5%**
+> **Progress:** `🟩⬜⬜⬜⬜⬜⬜⬜⬜⬜` **10%**
 
 ## 🚀 Project Overview
 **Shoppi** is an educational project aimed at learning and implementing **microservices architecture**, **TypeScript**, and **React**. The goal is to build a fully functional **e-commerce platform** inspired by Amazon or Allegro, using modern technologies and best practices.
@@ -13,14 +13,14 @@ This project is structured as a **microservices-based system**, where each servi
 
 ## 🔥 Core Microservices
 
-| Service Name        | Description |
-|---------------------|-------------|
-| **User Service**    | Handles user registration, authentication (JWT), and profile management. |
-| **Listing Service** | Allows users to create, edit, and delete product listings with categories and images. |
-| **Order Service**   | Manages customer orders, order history, and purchase tracking. |
-| **Payment Service** | Handles virtual balance, internal transactions (no real payment integration). |
-| **Search Service**  | Provides **full-text search** for product listings using **PostgreSQL + tsvector**. |
-| **Notification Service** | Sends real-time notifications via **WebSocket/email**. |
+| Service Name        | Description | Dev Implemented | Integration Tested |
+|---------------------|-------------|----------------|--------------------|
+| **User Service**    | Handles user registration, authentication (JWT), and profile management. | ✅ | ❌ |
+| **Product Service** | Allows users to create, edit, and delete product listings with categories and images. | ✅ | ❌ |
+| **Order Service**   | Manages customer orders, order history, and purchase tracking. | ❌ | ❌ |
+| **Payment Service** | Handles virtual balance, internal transactions (no real payment integration). | ❌ | ❌ |
+| **Search Service**  | Provides **full-text search** for product listings using **Redis**. | ❌ | ❌ |
+| **Notification Service** | Sends real-time notifications via **WebSocket/email**. | ❌ | ❌ |
 
 ### ⚡ Additional Components
 | Component | Description |
@@ -28,6 +28,14 @@ This project is structured as a **microservices-based system**, where each servi
 | **API Gateway**  | Built with **Spring Cloud Gateway**, acting as a single entry point for all requests. |
 | **Service Discovery**  | Uses **Eureka** to dynamically register and discover microservices. |
 | **Asynchronous Messaging**  | **RabbitMQ** enables event-driven architecture for better decoupling of services. |
+
+---
+
+## 🏗️ Current Architecture
+
+Below is the current architecture of the project:
+
+![Shoppi Architecture](docs/architecture.drawio.png)
 
 ---
 
@@ -39,6 +47,7 @@ This project is structured as a **microservices-based system**, where each servi
 - **Eureka** (Service Discovery)
 - **RabbitMQ** (Event-driven communication)
 - **PostgreSQL** (Primary database)
+- **Redis** (Caching & full-text search for Search Service)
 - **JWT Authentication** (Custom auth library)
 - **Lombok** (For cleaner code)
 
@@ -59,7 +68,7 @@ This project is structured as a **microservices-based system**, where each servi
 ## ⚙️ Database & Search
 
 - **Each microservice has its own PostgreSQL database** (No shared database approach).
-- **Full-text search** is implemented using **PostgreSQL tsvector**, instead of Elasticsearch (simpler for local development).
+- **Full-text search** is implemented using **Redis**, enabling **fast and scalable searching**.
 
 ---
 
@@ -98,10 +107,9 @@ npm install
 npm start
 ```
 
+---
+
 ## 👨‍💻 Author
 Created by **Filip Mróz** – Learning **Microservices, TypeScript, and React** 🚀
 
 ---
-
-🔹 This project is open-source and **meant for learning purposes only** – no real payment transactions are processed.  
-
