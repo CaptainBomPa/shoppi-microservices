@@ -42,4 +42,9 @@ public class ProductController {
         productService.deleteProduct(id);
         return ResponseEntity.noContent().build();
     }
+
+    @GetMapping("/sync")
+    public ResponseEntity<List<Product>> getSyncActiveProfiles() {
+        return ResponseEntity.ok(productService.getAllActiveProducts());
+    }
 }

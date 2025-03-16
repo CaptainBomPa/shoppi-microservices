@@ -1,5 +1,6 @@
 package me.fmroz.shoppi.product.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
 import lombok.*;
@@ -29,5 +30,6 @@ public class Category {
 
     @OneToMany(mappedBy = "parentCategory", cascade = CascadeType.ALL, orphanRemoval = true)
     @EqualsAndHashCode.Exclude
+    @JsonIgnore
     private List<Category> subcategories;
 }

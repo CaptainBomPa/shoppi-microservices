@@ -30,11 +30,11 @@ spring:
       enabled: false
 
   rabbitmq:
-    host: localhost
+    host: embedded
     port: 5672
     username: guest
     password: guest
-    listener.simple.auto-startup: false
+    listener.simple.auto-startup: true
 
 eureka:
   client:

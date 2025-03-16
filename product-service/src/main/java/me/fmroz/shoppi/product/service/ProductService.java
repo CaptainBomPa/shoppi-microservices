@@ -6,6 +6,7 @@ import me.fmroz.shoppi.product.exception.CategoryNotFoundException;
 import me.fmroz.shoppi.product.exception.ProductNotFoundException;
 import me.fmroz.shoppi.product.model.Category;
 import me.fmroz.shoppi.product.model.Product;
+import me.fmroz.shoppi.product.model.enums.ProductStatus;
 import me.fmroz.shoppi.product.repository.CategoryRepository;
 import me.fmroz.shoppi.product.repository.ProductRepository;
 import org.springframework.stereotype.Service;
@@ -21,6 +22,7 @@ public class ProductService {
 
     private final ProductRepository productRepository;
     private final CategoryRepository categoryRepository;
+    private final ProductEventPublisher productEventPublisher;
 
     @Transactional
     public Product createProduct(ProductRequest request) {
@@ -40,7 +42,12 @@ public class ProductService {
                 .createdAt(LocalDateTime.now())
                 .build();
 
-        return productRepository.save(product);
+        Product savedProduct = productRepository.save(product);
+        if (request.getStatus() != ProductStatus.DRAFT) {
+            productEventPublisher.sendProductCreatedEvent(savedProduct);
+        }
+
+        return savedProduct;
     }
 
     @Transactional
@@ -58,7 +65,12 @@ public class ProductService {
         product.setCategory(categoryRepository.findById(request.getCategoryId())
                 .orElseThrow(() -> new CategoryNotFoundException("Category not found with id: " + request.getCategoryId())));
 
-        return productRepository.save(product);
+        Product updatedProduct = productRepository.save(product);
+        if (request.getStatus() != ProductStatus.DRAFT) {
+            productEventPublisher.sendProductUpdatedEvent(updatedProduct);
+        }
+
+        return updatedProduct;
     }
 
     public Product getProductById(Long productId) {
@@ -74,11 +86,16 @@ public class ProductService {
         return products;
     }
 
+    public List<Product> getAllActiveProducts() {
+        return productRepository.findAllByStatus(ProductStatus.ACTIVE);
+    }
+
     @Transactional
     public void deleteProduct(Long productId) {
         if (!productRepository.existsById(productId)) {
             throw new ProductNotFoundException("Product not found with id: " + productId);
         }
         productRepository.deleteById(productId);
+        productEventPublisher.sendProductDeletedEvent(productId);
     }
 }
