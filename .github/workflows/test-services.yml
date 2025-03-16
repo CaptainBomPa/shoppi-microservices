@@ -1,0 +1,82 @@
+name: Test Java Services
+
+on:
+  push:
+    branches:
+      - master
+
+jobs:
+  test-api-gateway:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Set up JDK 17
+        uses: actions/setup-java@v3
+        with:
+          distribution: 'temurin'
+          java-version: '17'
+
+      - name: Grant execute permission to Gradle
+        working-directory: api-gateway
+        run: chmod +x gradlew
+
+      - name: Run tests for API Gateway
+        working-directory: api-gateway
+        run: ./gradlew test
+        env:
+          GITHUB_ACTOR: ${{ secrets.GITHUB_ACTOR }}
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          JWT_SECRET: "super-tajny-klucz"
+
+  test-user-service:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Set up JDK 17
+        uses: actions/setup-java@v3
+        with:
+          distribution: 'temurin'
+          java-version: '17'
+
+      - name: Grant execute permission to Gradle
+        working-directory: user-service
+        run: chmod +x gradlew
+
+      - name: Run tests for User Service
+        working-directory: user-service
+        run: |
+          ls -la
+          ./gradlew test
+          ls -la
+        env:
+          GITHUB_ACTOR: ${{ secrets.GITHUB_ACTOR }}
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          JWT_SECRET: "super-tajny-klucz"
+
+  test-product-service:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Set up JDK 17
+        uses: actions/setup-java@v3
+        with:
+          distribution: 'temurin'
+          java-version: '17'
+
+      - name: Grant execute permission to Gradle
+        working-directory: product-service
+        run: chmod +x gradlew
+
+      - name: Run tests for Product Service
+        working-directory: product-service
+        run: ./gradlew test
+        env:
+          GITHUB_ACTOR: ${{ secrets.GITHUB_ACTOR }}
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          JWT_SECRET: "super-tajny-klucz"

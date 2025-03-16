@@ -4,7 +4,7 @@ plugins {
 }
 
 group = 'me.fmroz.auth'
-version = '1.0.1'
+version = '1.0.2'
 
 java {
     toolchain {
@@ -39,6 +39,21 @@ publishing {
     publications {
         mavenJava(MavenPublication) {
             from components.java
+        }
+    }
+    repositories {
+        maven {
+            name = "LocalMaven"
+            url = uri("${rootProject.buildDir}/local-repo")
+        }
+
+        maven {
+            name = "GitHubPackages"
+            url = uri("https://maven.pkg.github.com/CaptainBomPa/shoppi-microservices")
+            credentials {
+                username = System.getenv("GITHUB_ACTOR")
+                password = System.getenv("GITHUB_TOKEN")
+            }
         }
     }
 }

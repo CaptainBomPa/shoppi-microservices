@@ -49,6 +49,7 @@ public class AuthControllerE2ETest {
 
     @BeforeEach
     void setUp() {
+        System.setProperty("JWT_SECRET", "testSecretKeyForJwtTesting1234567890!");
         userRepository.deleteAll();
     }
 
