@@ -23,3 +23,12 @@ CORS_ALLOWED_ORIGINS=http://localhost:3000,http://localhost:3001,http://localhos
 
 Use comma-separated values for multiple origins.
 
+## 3️⃣ Data generation
+Enabled data generation:
+
+Possible values: `true` / `false`
+
+```ini
+APP_DATA_POPULATE=true
+```
+

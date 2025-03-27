@@ -134,6 +134,7 @@ services:
     environment:
       SPRING_PROFILES_ACTIVE: docker
       JWT_SECRET: ${JWT_SECRET}
+      APP_DATA_POPULATE: ${APP_DATA_POPULATE}
     ports:
       - "8081:8081"
     volumes:
@@ -170,6 +171,7 @@ services:
     environment:
       SPRING_PROFILES_ACTIVE: docker
       JWT_SECRET: ${JWT_SECRET}
+      APP_DATA_POPULATE: ${APP_DATA_POPULATE}
     ports:
       - "8082:8082"
     volumes:
@@ -200,6 +202,7 @@ services:
     environment:
       SPRING_PROFILES_ACTIVE: docker
       JWT_SECRET: ${JWT_SECRET}
+      APP_DATA_POPULATE: ${APP_DATA_POPULATE}
     ports:
       - "8083:8083"
     volumes:

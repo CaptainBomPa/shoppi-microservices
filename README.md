@@ -2,7 +2,7 @@
 
 > 🚧 **Project Status: IN PROGRESS** 🚧
 >
-> **Progress:** `🟩⬜⬜⬜⬜⬜⬜⬜⬜⬜` **10%**
+> **Progress:** `🟩⬜⬜⬜⬜⬜⬜⬜⬜⬜` **15%**
 
 ## 🚀 Project Overview
 **Shoppi** is an educational project aimed at learning and implementing **microservices architecture**, **TypeScript**, and **React**. The goal is to build a fully functional **e-commerce platform** inspired by Amazon or Allegro, using modern technologies and best practices.
@@ -14,12 +14,13 @@ This project is structured as a **microservices-based system**, where each servi
 ## 🔥 Core Microservices
 
 | Service Name        | Description | Dev Implemented | Integration Tested |
-|---------------------|-------------|----------------|--------------------|
+|---------------------|-------------|------------------|--------------------|
 | **User Service**    | Handles user registration, authentication (JWT), and profile management. | ✅ | ❌ |
 | **Product Service** | Allows users to create, edit, and delete product listings with categories and images. | ✅ | ❌ |
+| **Search Service**  | Provides **full-text search** for product listings using **Redis**. | ⏳ | ❌ |
+| **Image Service**   | Stores and serves product/user images uploaded to the platform. | ❌ | ❌ |
 | **Order Service**   | Manages customer orders, order history, and purchase tracking. | ❌ | ❌ |
 | **Payment Service** | Handles virtual balance, internal transactions (no real payment integration). | ❌ | ❌ |
-| **Search Service**  | Provides **full-text search** for product listings using **Redis**. | ❌ | ❌ |
 | **Notification Service** | Sends real-time notifications via **WebSocket/email**. | ❌ | ❌ |
 
 ### ⚡ Additional Components
@@ -49,6 +50,7 @@ Below is the current architecture of the project:
 - **PostgreSQL** (Primary database)
 - **Redis** (Caching & full-text search for Search Service)
 - **JWT Authentication** (Custom auth library)
+- **Feign Client** (Inter-service communication)
 - **Lombok** (For cleaner code)
 
 ### **Frontend**

@@ -3,8 +3,8 @@
 #################
 
 app:
-  category:
-    populate: true
+  data:
+    populate: false
 
 ###########################
 # SPRING RELATED PROPERTIES

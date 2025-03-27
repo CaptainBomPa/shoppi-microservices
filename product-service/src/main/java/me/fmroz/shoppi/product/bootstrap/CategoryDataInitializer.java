@@ -7,16 +7,18 @@ import me.fmroz.shoppi.product.model.Category;
 import me.fmroz.shoppi.product.repository.CategoryRepository;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.CommandLineRunner;
+import org.springframework.core.annotation.Order;
 import org.springframework.stereotype.Component;
 
 @Component
 @RequiredArgsConstructor
 @Slf4j
+@Order(1)
 public class CategoryDataInitializer implements CommandLineRunner {
 
     private final CategoryRepository categoryRepository;
 
-    @Value("${app.category.populate:false}")
+    @Value("${app.data.populate:false}")
     private boolean shouldPopulate;
 
     @Override
