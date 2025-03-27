@@ -47,10 +47,10 @@ public class ProductCacheSearchE2ETest {
         cachedProductService.findAll().forEach(p -> cachedProductService.delete(p.getId()));
 
         List.of(
-                new CachedProduct(1L, "Laptop X", "Gaming laptop", new BigDecimal("1500"), "PLN", 3L, 1L),
-                new CachedProduct(2L, "Budget Laptop", "Basic device", new BigDecimal("900"), "PLN", 3L, 2L),
-                new CachedProduct(3L, "Smartphone", "Android phone", new BigDecimal("1300"), "USD", 4L, 1L),
-                new CachedProduct(4L, "Laptop Bag", "Accessory", new BigDecimal("200"), "PLN", 5L, 3L)
+                new CachedProduct(1L, "Laptop X", "Gaming laptop", new BigDecimal("1500"), "PLN", 3L, 1L, null),
+                new CachedProduct(2L, "Budget Laptop", "Basic device", new BigDecimal("900"), "PLN", 3L, 2L, null),
+                new CachedProduct(3L, "Smartphone", "Android phone", new BigDecimal("1300"), "USD", 4L, 1L, null),
+                new CachedProduct(4L, "Laptop Bag", "Accessory", new BigDecimal("200"), "PLN", 5L, 3L, null)
         ).forEach(cachedProductService::save);
     }
 

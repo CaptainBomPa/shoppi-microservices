@@ -7,7 +7,10 @@ import me.fmroz.search.dto.ProductSearchRequest;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDateTime;
+import java.util.Comparator;
 import java.util.List;
+import java.util.Map;
 import java.util.Objects;
 import java.util.stream.Collectors;
 
@@ -46,6 +49,27 @@ public class CachedProductService {
                 .filter(p -> req.getCurrency() == null || p.getCurrency().equalsIgnoreCase(req.getCurrency()))
                 .filter(p -> req.getCategoryId() == null || p.getCategoryId().equals(req.getCategoryId()))
                 .filter(p -> req.getUserId() == null || p.getUserId().equals(req.getUserId()))
+                .collect(Collectors.toList());
+    }
+
+    public List<CachedProduct> getPromotedProducts(int limit) {
+        return findAll().stream()
+                .filter(p -> p.getPromotedUntil() != null && LocalDateTime.now().isBefore(p.getPromotedUntil()))
+                .sorted(Comparator.comparing(CachedProduct::getPromotedUntil).reversed())
+                .limit(limit)
+                .collect(Collectors.toList());
+    }
+
+    public List<CachedProduct> getPopularCategoryProducts(int categoryLimit, int productsPerCategory) {
+        Map<Long, List<CachedProduct>> byCategory = findAll().stream()
+                .collect(Collectors.groupingBy(CachedProduct::getCategoryId));
+
+        return byCategory.values().stream()
+                .sorted((a, b) -> Integer.compare(b.size(), a.size()))
+                .limit(categoryLimit)
+                .flatMap(list -> list.stream()
+                        .sorted(Comparator.comparing(CachedProduct::getId))
+                        .limit(productsPerCategory))
                 .collect(Collectors.toList());
     }
 

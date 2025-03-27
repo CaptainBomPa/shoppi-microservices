@@ -6,6 +6,7 @@ import lombok.NoArgsConstructor;
 
 import java.io.Serializable;
 import java.math.BigDecimal;
+import java.time.LocalDateTime;
 
 @Data
 @AllArgsConstructor
@@ -18,4 +19,5 @@ public class CachedProduct implements Serializable {
     private String currency;
     private Long categoryId;
     private Long userId;
+    private LocalDateTime promotedUntil;
 }

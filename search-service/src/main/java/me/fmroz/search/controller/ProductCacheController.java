@@ -27,4 +27,15 @@ public class ProductCacheController {
         List<CachedProduct> result = cachedProductService.search(request);
         return ResponseEntity.ok(result);
     }
+
+    @GetMapping("/home/promoted")
+    public ResponseEntity<List<CachedProduct>> getPromotedForHome() {
+        return ResponseEntity.ok(cachedProductService.getPromotedProducts(50));
+    }
+
+    @GetMapping("/home/popular")
+    public ResponseEntity<List<CachedProduct>> getPopularCategoryProductsForHome() {
+        return ResponseEntity.ok(cachedProductService.getPopularCategoryProducts(5, 10));
+    }
+
 }

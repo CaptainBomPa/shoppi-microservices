@@ -42,7 +42,8 @@ public class ProductSyncService {
                         dto.getPrice(),
                         dto.getCurrency().name(),
                         dto.getCategoryId(),
-                        dto.getUserId()
+                        dto.getUserId(),
+                        dto.getPromotedUntil()
                 );
                 cachedProductService.save(cached);
                 count++;

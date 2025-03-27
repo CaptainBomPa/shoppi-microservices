@@ -54,7 +54,8 @@ public class ProductEventListener {
                 dto.getPrice(),
                 dto.getCurrency().name(),
                 dto.getCategoryId(),
-                dto.getUserId()
+                dto.getUserId(),
+                dto.getPromotedUntil()
         );
     }
 }
