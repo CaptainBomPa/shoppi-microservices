@@ -2,7 +2,7 @@ package me.fmroz.shoppi.product.service;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import me.fmroz.shoppi.product.dto.ProductEventDTO;
+import me.fmroz.shoppi.contract.product.ProductEventDTO;
 import me.fmroz.shoppi.product.model.Product;
 import org.springframework.amqp.rabbit.core.RabbitTemplate;
 import org.springframework.stereotype.Service;

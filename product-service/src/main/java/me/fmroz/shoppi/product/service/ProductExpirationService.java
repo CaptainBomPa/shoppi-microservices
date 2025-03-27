@@ -2,8 +2,8 @@ package me.fmroz.shoppi.product.service;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import me.fmroz.shoppi.contract.product.ProductStatus;
 import me.fmroz.shoppi.product.model.Product;
-import me.fmroz.shoppi.product.model.enums.ProductStatus;
 import me.fmroz.shoppi.product.repository.ProductRepository;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;

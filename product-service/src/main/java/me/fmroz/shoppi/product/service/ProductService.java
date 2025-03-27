@@ -1,13 +1,13 @@
 package me.fmroz.shoppi.product.service;
 
 import lombok.RequiredArgsConstructor;
-import me.fmroz.shoppi.product.dto.ProductEventDTO;
+import me.fmroz.shoppi.contract.product.ProductEventDTO;
+import me.fmroz.shoppi.contract.product.ProductStatus;
 import me.fmroz.shoppi.product.dto.ProductRequest;
 import me.fmroz.shoppi.product.exception.CategoryNotFoundException;
 import me.fmroz.shoppi.product.exception.ProductNotFoundException;
 import me.fmroz.shoppi.product.model.Category;
 import me.fmroz.shoppi.product.model.Product;
-import me.fmroz.shoppi.product.model.enums.ProductStatus;
 import me.fmroz.shoppi.product.repository.CategoryRepository;
 import me.fmroz.shoppi.product.repository.ProductRepository;
 import org.springframework.stereotype.Service;

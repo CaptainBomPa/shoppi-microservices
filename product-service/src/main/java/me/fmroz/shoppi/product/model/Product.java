@@ -3,8 +3,8 @@ package me.fmroz.shoppi.product.model;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.*;
 import lombok.*;
-import me.fmroz.shoppi.product.model.enums.Currency;
-import me.fmroz.shoppi.product.model.enums.ProductStatus;
+import me.fmroz.shoppi.contract.product.Currency;
+import me.fmroz.shoppi.contract.product.ProductStatus;
 
 import java.math.BigDecimal;
 import java.time.LocalDateTime;

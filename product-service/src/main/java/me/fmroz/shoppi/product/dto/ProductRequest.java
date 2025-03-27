@@ -4,8 +4,8 @@ import jakarta.validation.constraints.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import me.fmroz.shoppi.product.model.enums.Currency;
-import me.fmroz.shoppi.product.model.enums.ProductStatus;
+import me.fmroz.shoppi.contract.product.Currency;
+import me.fmroz.shoppi.contract.product.ProductStatus;
 
 import java.math.BigDecimal;
 import java.time.LocalDateTime;

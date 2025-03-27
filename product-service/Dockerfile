@@ -8,6 +8,10 @@ WORKDIR /build/auth-library
 RUN chmod +x gradlew
 RUN ./gradlew clean build publishToMavenLocal
 
+WORKDIR /build/contract-product
+RUN chmod +x gradlew
+RUN ./gradlew clean build publishToMavenLocal
+
 WORKDIR /build/product-service
 RUN chmod +x gradlew
 RUN ./gradlew clean build -x test --refresh-dependencies

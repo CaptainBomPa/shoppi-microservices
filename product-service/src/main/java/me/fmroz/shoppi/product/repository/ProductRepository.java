@@ -1,7 +1,7 @@
 package me.fmroz.shoppi.product.repository;
 
+import me.fmroz.shoppi.contract.product.ProductStatus;
 import me.fmroz.shoppi.product.model.Product;
-import me.fmroz.shoppi.product.model.enums.ProductStatus;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.time.LocalDateTime;

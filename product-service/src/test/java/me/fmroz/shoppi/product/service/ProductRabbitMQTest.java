@@ -1,13 +1,13 @@
 package me.fmroz.shoppi.product.service;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import me.fmroz.shoppi.contract.product.Currency;
+import me.fmroz.shoppi.contract.product.ProductEventDTO;
+import me.fmroz.shoppi.contract.product.ProductStatus;
 import me.fmroz.shoppi.product.config.RabbitMQTestConfig;
-import me.fmroz.shoppi.product.dto.ProductEventDTO;
 import me.fmroz.shoppi.product.dto.ProductRequest;
 import me.fmroz.shoppi.product.model.Category;
 import me.fmroz.shoppi.product.model.Product;
-import me.fmroz.shoppi.product.model.enums.Currency;
-import me.fmroz.shoppi.product.model.enums.ProductStatus;
 import me.fmroz.shoppi.product.repository.CategoryRepository;
 import me.fmroz.shoppi.product.repository.ProductRepository;
 import org.junit.jupiter.api.BeforeEach;
