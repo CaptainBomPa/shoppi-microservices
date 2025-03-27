@@ -2,6 +2,7 @@ import React, {useEffect, useState} from "react";
 import {RotateCcw, Search, X} from "lucide-react";
 import SearchSuggestions from "./SearchSuggestions";
 import {Suggestion} from "../../types/Suggestion";
+import productSearchService from "../../api/productSearchService";
 
 const SearchBar = () => {
     const [searchQuery, setSearchQuery] = useState("");
@@ -9,6 +10,7 @@ const SearchBar = () => {
     const [suggestions, setSuggestions] = useState<Suggestion[]>([]);
     const [typingTimeout, setTypingTimeout] = useState<NodeJS.Timeout | null>(null);
     const [showResetIcon, setShowResetIcon] = useState(false);
+    const [isFocused, setIsFocused] = useState(false);
 
     useEffect(() => {
         if (searchQuery === "") {
@@ -24,7 +26,7 @@ const SearchBar = () => {
         setTypingTimeout(
             setTimeout(() => {
                 setIsLoading(true);
-                fetchFakeResults();
+                fetchResults();
             }, 100)
         );
     }, [searchQuery]);
@@ -42,16 +44,24 @@ const SearchBar = () => {
         };
     }, []);
 
-    const fetchFakeResults = () => {
-        setTimeout(() => {
-            setSuggestions([
-                {id: 1, name: "Smartfon XYZ", image: "logo192.png", link: "#"},
-                {id: 2, name: "Laptop ABC", image: "logo192.png", link: "#"},
-                {id: 3, name: "Słuchawki 123", image: "logo192.png", link: "#"},
-            ]);
+    const fetchResults = async () => {
+        try {
+            const data = await productSearchService.searchProducts({text: searchQuery});
+            const formatted = data.map((item) => ({
+                id: item.id,
+                name: item.title,
+                image: `https://picsum.photos/200/300?random=${item.id}`,
+                link: `/products/${item.id}`,
+            }));
+            setSuggestions(formatted);
+        } catch (error) {
+            console.error("Błąd podczas wyszukiwania produktów:", error);
+            setSuggestions([]);
+        } finally {
             setIsLoading(false);
-        }, 400);
+        }
     };
+
 
     const clearSearch = () => {
         setSearchQuery("");
@@ -72,6 +82,8 @@ const SearchBar = () => {
                 placeholder="Szukaj produktu..."
                 value={searchQuery}
                 onChange={(e) => setSearchQuery(e.target.value)}
+                onFocus={() => setIsFocused(true)}
+                onBlur={() => setTimeout(() => setIsFocused(false), 150)}
                 className="w-full pl-10 pr-10 py-2 rounded-full border border-light dark:border-accent bg-white dark:bg-gray-800 text-primary dark:text-light focus:outline-none focus:ring-2 focus:ring-accent dark:focus:ring-light transition duration-300"
             />
 
@@ -96,7 +108,9 @@ const SearchBar = () => {
                 </div>
             )}
 
-            {!isLoading && searchQuery && suggestions.length > 0 && <SearchSuggestions suggestions={suggestions}/>}
+            {!isLoading && searchQuery && suggestions.length > 0 && isFocused && (
+                <SearchSuggestions suggestions={suggestions}/>
+            )}
         </div>
     );
 };
