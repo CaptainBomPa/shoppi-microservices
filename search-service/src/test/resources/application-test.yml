@@ -1,0 +1,31 @@
+#################
+# APP PROPERTIES
+#################
+
+product:
+  sync-enabled: false
+  scheduled-sync-enabled: false
+  sync-interval: 1h
+
+###########################
+# SPRING RELATED PROPERTIES
+###########################
+
+spring:
+
+  rabbitmq:
+    host: embedded
+    port: 5672
+    username: guest
+    password: guest
+    listener.simple.auto-startup: true
+
+eureka:
+  client:
+    enabled: false
+  instance:
+    prefer-ip-address: true
+
+management:
+  tracing:
+    enabled: false

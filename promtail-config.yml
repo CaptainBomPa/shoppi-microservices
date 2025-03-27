@@ -26,6 +26,10 @@ scrape_configs:
         regex: "product-service"
         target_label: "job"
         replacement: "product-service"
+      - source_labels: [ container ]
+        regex: "search-service"
+        target_label: "job"
+        replacement: "search-service"
       - source_labels: [container]
         regex: "api-gateway"
         target_label: "job"

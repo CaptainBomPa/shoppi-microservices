@@ -88,6 +88,33 @@
       ],
       "title": "Product Service Logs",
       "type": "logs"
+    },
+    {
+      "datasource": "Loki",
+      "fieldConfig": {
+        "defaults": {},
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 10,
+        "w": 24,
+        "x": 0,
+        "y": 30
+      },
+      "id": 4,
+      "options": {
+        "enableLogDetails": true,
+        "showLabels": true,
+        "showTime": true
+      },
+      "targets": [
+        {
+          "expr": "{job=\"search-service\"}",
+          "refId": "C"
+        }
+      ],
+      "title": "Search Service Logs",
+      "type": "logs"
     }
   ],
   "refresh": "5s",

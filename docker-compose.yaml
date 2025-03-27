@@ -177,6 +177,36 @@ services:
       - ./product-service/.env:/app/.env
     networks:
       - shoppi_network
+      
+  redis-for-search:
+    image: redis:7
+    container_name: redis
+    restart: always
+    ports:
+      - "6379:6379"
+    networks:
+      - shoppi_network  
+  
+  search-service:
+    build:
+      context: .
+      dockerfile: search-service/Dockerfile
+    container_name: search-service
+    restart: always
+    depends_on:
+      - redis-for-search
+      - eureka
+      - rabbitmq
+    environment:
+      SPRING_PROFILES_ACTIVE: docker
+      JWT_SECRET: ${JWT_SECRET}
+    ports:
+      - "8083:8083"
+    volumes:
+      - maven_local:/root/.m2
+      - ./search-service/.env:/app/.env
+    networks:
+      - shoppi_network
 
 volumes:
   user_postgres_data:

@@ -1,6 +1,7 @@
 package me.fmroz.shoppi.product.service;
 
 import lombok.RequiredArgsConstructor;
+import me.fmroz.shoppi.product.dto.ProductEventDTO;
 import me.fmroz.shoppi.product.dto.ProductRequest;
 import me.fmroz.shoppi.product.exception.CategoryNotFoundException;
 import me.fmroz.shoppi.product.exception.ProductNotFoundException;
@@ -86,9 +87,23 @@ public class ProductService {
         return products;
     }
 
-    public List<Product> getAllActiveProducts() {
-        return productRepository.findAllByStatus(ProductStatus.ACTIVE);
+    public List<ProductEventDTO> getAllActiveProducts() {
+        return productRepository.findAllByStatus(ProductStatus.ACTIVE).stream()
+                .map(product -> new ProductEventDTO(
+                        product.getId(),
+                        product.getTitle(),
+                        product.getDescription(),
+                        product.getPrice(),
+                        product.getCurrency(),
+                        product.getCategory().getId(),
+                        product.getUserId(),
+                        product.getStatus(),
+                        product.getExpiresAt(),
+                        product.getPromotedUntil()
+                ))
+                .toList();
     }
+
 
     @Transactional
     public void deleteProduct(Long productId) {
