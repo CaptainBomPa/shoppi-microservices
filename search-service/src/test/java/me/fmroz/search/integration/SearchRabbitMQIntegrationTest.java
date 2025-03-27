@@ -1,6 +1,5 @@
 package me.fmroz.search.integration;
 
-import me.fmroz.search.config.RabbitMQTestConfig;
 import me.fmroz.search.dto.CachedProduct;
 import me.fmroz.search.service.CachedProductService;
 import me.fmroz.shoppi.contract.product.Currency;
@@ -10,7 +9,6 @@ import org.junit.jupiter.api.*;
 import org.springframework.amqp.rabbit.core.RabbitTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.context.annotation.Import;
 import org.springframework.test.context.ActiveProfiles;
 import redis.embedded.RedisServer;
 
@@ -20,7 +18,6 @@ import java.time.LocalDateTime;
 import static org.assertj.core.api.Assertions.assertThat;
 
 @SpringBootTest
-@Import(RabbitMQTestConfig.class)
 @ActiveProfiles("test")
 @TestInstance(TestInstance.Lifecycle.PER_CLASS)
 public class SearchRabbitMQIntegrationTest {
