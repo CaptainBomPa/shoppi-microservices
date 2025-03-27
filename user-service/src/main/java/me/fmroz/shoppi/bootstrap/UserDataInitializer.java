@@ -10,6 +10,7 @@ import me.fmroz.shoppi.model.ShoppiUser;
 import me.fmroz.shoppi.model.staticdata.Gender;
 import me.fmroz.shoppi.repository.CompanyInfoRepository;
 import me.fmroz.shoppi.repository.ShoppiUserRepository;
+import me.fmroz.shoppi.service.ShoppiUserService;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Component;
@@ -24,6 +25,7 @@ import java.util.Random;
 public class UserDataInitializer implements CommandLineRunner {
 
     private final ShoppiUserRepository userRepository;
+    private final ShoppiUserService shoppiUserService;
     private final CompanyInfoRepository companyInfoRepository;
     private final Random random = new Random();
     @Value("${app.data.populate:false}")
@@ -46,7 +48,7 @@ public class UserDataInitializer implements CommandLineRunner {
 
         for (int i = 1; i <= 30; i++) {
             ShoppiUser user = generateRegularUser(i);
-            userRepository.save(user);
+            shoppiUserService.createUser(user);
         }
 
         for (int i = 31; i <= 100; i++) {

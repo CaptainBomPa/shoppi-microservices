@@ -38,11 +38,15 @@ public class SecurityConfig {
                     config.setAllowCredentials(true);
                     return config;
                 }))
-                .authorizeExchange(exchange -> exchange
-                        .pathMatchers(HttpMethod.OPTIONS, "/**").permitAll()
-                        .pathMatchers(PublicEndpoints.PUBLIC_ENDPOINTS).permitAll()
-                        .anyExchange().authenticated()
-                )
+                .authorizeExchange(exchange -> {
+                    exchange.pathMatchers(HttpMethod.OPTIONS, "/**").permitAll();
+                    PublicEndpoints.PUBLIC_ENDPOINTS.forEach((method, paths) -> {
+                        for (String path : paths) {
+                            exchange.pathMatchers(method, path).permitAll();
+                        }
+                    });
+                    exchange.anyExchange().authenticated();
+                })
                 .httpBasic(httpBasicSpec -> httpBasicSpec.authenticationEntryPoint(new CustomAuthenticationEntryPoint()))
                 .formLogin(ServerHttpSecurity.FormLoginSpec::disable)
                 .headers(headers -> headers.frameOptions(ServerHttpSecurity.HeaderSpec.FrameOptionsSpec::disable))

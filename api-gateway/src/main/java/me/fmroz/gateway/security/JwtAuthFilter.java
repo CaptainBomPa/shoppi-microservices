@@ -7,6 +7,7 @@ import me.fmroz.auth.AuthUserDetails;
 import me.fmroz.auth.JwtUtil;
 import me.fmroz.gateway.common.PublicEndpoints;
 import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpMethod;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.server.reactive.ServerHttpRequest;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -30,11 +31,9 @@ public class JwtAuthFilter implements WebFilter {
     @Override
     public Mono<Void> filter(ServerWebExchange exchange, WebFilterChain chain) {
         ServerHttpRequest request = exchange.getRequest();
-        String path = request.getPath().toString();
         String authHeader = request.getHeaders().getFirst(HttpHeaders.AUTHORIZATION);
-        String originHeader = request.getHeaders().getFirst("Origin");
 
-        if (isPublicEndpoint(path)) {
+        if (isPublicEndpoint(request)) {
             return chain.filter(exchange);
         }
 
@@ -72,12 +71,10 @@ public class JwtAuthFilter implements WebFilter {
         }
     }
 
-    private boolean isPublicEndpoint(String path) {
-        for (String publicEndpoint : PublicEndpoints.PUBLIC_ENDPOINTS) {
-            if (path.matches(publicEndpoint.replace("**", ".*"))) {
-                return true;
-            }
-        }
-        return false;
+    private boolean isPublicEndpoint(ServerHttpRequest request) {
+        String path = request.getPath().toString();
+        HttpMethod method = request.getMethod();
+        return PublicEndpoints.isPublic(method, path);
     }
+
 }
