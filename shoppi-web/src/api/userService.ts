@@ -12,6 +12,11 @@ const userService = {
         return response.data;
     },
 
+    getUser: async (id: number) => {
+        const response = await api.get(`/users/${id}`);
+        return response.data;
+    },
+
     registerUser: async (userData: {
         email: string;
         firstName: string;

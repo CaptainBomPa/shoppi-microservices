@@ -12,6 +12,7 @@ import MyOffers from "./pages/MyOffers";
 import CompanySettings from "./pages/CompanySettings";
 import ProtectedRoute from "./components/ProtectedRoute";
 import {UserProvider} from "./context/UserContext";
+import ProductDetailsPage from "./pages/ProductDetailsPage";
 
 function App() {
     return (
@@ -24,6 +25,7 @@ function App() {
                             <div className="h-[calc(100vh-4rem)] overflow-y-auto">
                                 <Routes>
                                     <Route path="/" element={<Home/>}/>
+                                    <Route path="/products/:id" element={<ProductDetailsPage/>}/>
 
                                     <Route element={<ProtectedRoute allowedAccountTypes={["USER"]} redirectPath="/"/>}>
                                         <Route path="/my-orders" element={<MyOrders/>}/>

@@ -3,12 +3,12 @@ package me.fmroz.shoppi.product.bootstrap;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import me.fmroz.shoppi.contract.product.Currency;
+import me.fmroz.shoppi.contract.product.ProductStatus;
 import me.fmroz.shoppi.product.model.Category;
 import me.fmroz.shoppi.product.model.Product;
 import me.fmroz.shoppi.product.repository.CategoryRepository;
 import me.fmroz.shoppi.product.repository.ProductRepository;
-import me.fmroz.shoppi.contract.product.Currency;
-import me.fmroz.shoppi.contract.product.ProductStatus;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.core.annotation.Order;
@@ -137,9 +137,8 @@ public class ProductDataInitializer implements CommandLineRunner {
         Map<String, List<Category>> categorized = groupCategories(categories);
         log.info("Populating sample products...");
 
-        for (int i = 1; i <= PRODUCT_COUNT; i++) {
-            boolean isUser = i <= 30;
-            Long userId = isUser ? USER_ID_START + i - 1 : SELLER_ID_START + (i - 31);
+        for (int i = 0; i < PRODUCT_COUNT; i++) {
+            Long userId = SELLER_ID_START + random.nextInt(70);
 
             String templateKey = pickRandom(titleTemplates.keySet());
             String title = pickRandom(titleTemplates.get(templateKey));

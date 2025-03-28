@@ -14,11 +14,13 @@ public class PublicEndpoints {
         PUBLIC_ENDPOINTS.put(HttpMethod.GET, List.of(
                 //user-service
                 "/api/v1/users",
+                "/api/v1/users/**",
 
                 // product-service
                 "/api/v1/categories",
-                "/api/v1/products",
+                "/api/v1/products/**",
                 "/api/v1/products/batch",
+                "/api/v1/categories",
 
                 // search-service
                 "/api/v1/cache/products/search",
