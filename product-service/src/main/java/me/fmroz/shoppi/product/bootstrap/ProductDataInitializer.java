@@ -31,34 +31,88 @@ public class ProductDataInitializer implements CommandLineRunner {
     @Value("${app.data.populate:false}")
     private boolean shouldPopulate;
 
-    private static final int PRODUCT_COUNT = 100;
+    private static final int PRODUCT_COUNT = 300;
     private static final Long USER_ID_START = 1L;
     private static final Long SELLER_ID_START = 31L;
 
     private final Random random = new Random();
 
-    private final Map<String, List<String>> titleTemplates = Map.of(
-            "Komputery", List.of("Gamingowy PC", "Zestaw Biurkowy", "Komputer Mini"),
-            "Laptopy", List.of("Laptop do pracy", "Laptop gamingowy", "Ultrabook podróżny"),
-            "Smartfony", List.of("Smartfon Android", "Nowy iPhone", "Tani telefon"),
-            "Meble", List.of("Fotel biurowy", "Stół kuchenny", "Szafa przesuwna"),
-            "Książki", List.of("Książka fantasy", "Poradnik zdrowia", "Kryminał miejski"),
-            "Rowery", List.of("Rower górski", "Rower szosowy", "Rower miejski")
+    private final Map<String, List<String>> titleTemplates = Map.ofEntries(
+            Map.entry("Komputery", List.of(
+                    "Gamingowy PC Ryzen 7",
+                    "Komputer do biura HP EliteDesk",
+                    "Zestaw komputerowy z monitorem Dell",
+                    "Mini PC Intel NUC",
+                    "PC do obróbki grafiki - Intel i9 + RTX 4070 Ti"
+            )),
+            Map.entry("Laptopy", List.of(
+                    "Laptop ASUS TUF Gaming F15",
+                    "MacBook Pro 14'' M2",
+                    "Lenovo ThinkPad X1 Carbon",
+                    "Dell Inspiron 15",
+                    "Ultrabook HP Spectre x360"
+            )),
+            Map.entry("Smartfony", List.of(
+                    "iPhone 14 Pro Max 128GB",
+                    "Samsung Galaxy S23 Ultra",
+                    "Xiaomi Redmi Note 12",
+                    "Google Pixel 7",
+                    "OnePlus 11 5G"
+            )),
+            Map.entry("Meble", List.of(
+                    "Szafa IKEA PAX 200x236",
+                    "Stół drewniany rozkładany",
+                    "Krzesło gamingowe Diablo X-One",
+                    "Łóżko tapicerowane 160x200",
+                    "Komoda MALM 6 szuflad"
+            )),
+            Map.entry("Książki", List.of(
+                    "Harry Potter i Kamień Filozoficzny",
+                    "Zbrodnia i kara - Fiodor Dostojewski",
+                    "Atomic Habits - James Clear",
+                    "Wiedźmin: Ostatnie Życzenie",
+                    "Mały Książę - Antoine de Saint-Exupéry"
+            )),
+            Map.entry("Rowery", List.of(
+                    "Rower górski Kross Level 3.0",
+                    "Rower szosowy Giant Contend",
+                    "Rower miejski Romet Pop Art",
+                    "E-bike Elektryczny Ecobike",
+                    "Rower dziecięcy 20 cali"
+            ))
     );
 
-    private final Map<String, List<String>> descriptionTemplates = Map.of(
-            "Komputery", List.of("Nowoczesny zestaw komputerowy idealny do pracy i nauki.",
-                    "Świetny komputer z dużą ilością RAM i SSD."),
-            "Laptopy", List.of("Wydajny laptop z ekranem Full HD.",
-                    "Idealny laptop do pracy zdalnej i rozrywki."),
-            "Smartfony", List.of("Smartfon z dużym ekranem i wytrzymałą baterią.",
-                    "Najnowszy model z aparatem 108MP."),
-            "Meble", List.of("Solidne meble z drewna, nowoczesny design.",
-                    "Meble idealne do salonu lub sypialni."),
-            "Książki", List.of("Bestseller wśród polskich autorów.",
-                    "Idealna książka na długie wieczory."),
-            "Rowery", List.of("Lekka rama i amortyzacja – idealny na górskie szlaki.",
-                    "Rower idealny na codzienne przejażdżki.")
+    private final Map<String, List<String>> descriptionTemplates = Map.ofEntries(
+            Map.entry("Komputery", List.of(
+                    "Wysokowydajny PC dla graczy z kartą RTX 3060 i procesorem Ryzen 7.",
+                    "Zestaw do pracy z monitorem Full HD i dyskiem SSD 1TB.",
+                    "Kompaktowy mini PC idealny do zastosowań biurowych i HTPC."
+            )),
+            Map.entry("Laptopy", List.of(
+                    "Laptop gamingowy z matrycą 144Hz i RTX 4060.",
+                    "Ultrabook z ekranem dotykowym i baterią na 14h pracy.",
+                    "Biznesowy notebook z obudową z włókna węglowego."
+            )),
+            Map.entry("Smartfony", List.of(
+                    "Smartfon z aparatem 200MP, Snapdragonem 8 Gen 2 i ekranem AMOLED.",
+                    "Model z szybkim ładowaniem 120W i 12GB RAM.",
+                    "Nowoczesny design, FaceID, 5G oraz wytrzymała bateria."
+            )),
+            Map.entry("Meble", List.of(
+                    "Nowoczesna szafa z przesuwanymi drzwiami i lustrem.",
+                    "Biurko z regulacją wysokości oraz szufladami.",
+                    "Komfortowe krzesło z podłokietnikami i poduszką lędźwiową."
+            )),
+            Map.entry("Książki", List.of(
+                    "Bestseller fantasy – magiczny świat i epicka przygoda.",
+                    "Poradnik rozwijający nawyki i produktywność.",
+                    "Klasyka literatury rosyjskiej z elementami psychologicznymi."
+            )),
+            Map.entry("Rowery", List.of(
+                    "Rower górski z amortyzacją i 21 biegami.",
+                    "Szybki rower szosowy na lekkiej ramie aluminiowej.",
+                    "Stylowy rower miejski z koszykiem i przerzutką Shimano."
+            ))
     );
 
     @Override

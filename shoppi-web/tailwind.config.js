@@ -15,6 +15,9 @@ module.exports = {
             fontFamily: {
                 sans: ["Kanit", "sans-serif"],
             },
+            spacing: {
+                'scrollbar': '8px'
+            }
         },
     },
     plugins: [],

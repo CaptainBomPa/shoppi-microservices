@@ -2,6 +2,7 @@ package me.fmroz.search.config;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.jsontype.BasicPolymorphicTypeValidator;
+import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 import me.fmroz.search.dto.CachedProduct;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -24,6 +25,7 @@ public class RedisConfig {
         template.setHashKeySerializer(keySerializer);
 
         ObjectMapper mapper = new ObjectMapper();
+        mapper.registerModule(new JavaTimeModule());
         mapper.activateDefaultTyping(
                 BasicPolymorphicTypeValidator.builder().allowIfSubType(Object.class).build(),
                 ObjectMapper.DefaultTyping.NON_FINAL

@@ -11,7 +11,6 @@ public class PublicEndpoints {
     public static final Map<HttpMethod, List<String>> PUBLIC_ENDPOINTS = new HashMap<>();
 
     static {
-        // GET endpoints
         PUBLIC_ENDPOINTS.put(HttpMethod.GET, List.of(
                 //user-service
                 "/api/v1/users",
@@ -22,14 +21,15 @@ public class PublicEndpoints {
                 "/api/v1/products/batch",
 
                 // search-service
-                "/api/v1/cache/products",
+                "/api/v1/cache/products/search",
+                "/api/v1/cache/products/home/promoted",
+                "/api/v1/cache/products/home/popular",
 
                 // gateway internal
                 "/actuator/gateway/routes",
                 "/actuator/prometheus"
         ));
 
-        // POST endpoints
         PUBLIC_ENDPOINTS.put(HttpMethod.POST, List.of(
                 "/api/v1/auth/login",
                 "/api/v1/auth/refresh-token",

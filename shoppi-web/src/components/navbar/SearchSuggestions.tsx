@@ -7,7 +7,8 @@ type Props = {
 
 const SearchSuggestions: React.FC<Props> = ({suggestions}) => {
     return (
-        <div className="absolute w-full max-w-2xl bg-white dark:bg-gray-800 border border-light dark:border-accent shadow-lg rounded-lg mt-2 z-50">
+        <div
+            className="absolute w-full max-w-2xl max-h-[50vh] overflow-y-auto bg-white dark:bg-gray-800 border border-light dark:border-accent shadow-lg rounded-lg mt-2 z-50 scrollbar-thin scrollbar-thumb-accent dark:scrollbar-thumb-light">
             {suggestions.map((item) => (
                 <a
                     key={item.id}
