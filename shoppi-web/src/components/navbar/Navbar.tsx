@@ -10,7 +10,7 @@ const Navbar = () => {
     const {isAuthenticated} = useAuth();
 
     return (
-        <nav className="fixed top-0 left-0 w-full z-50 p-4 bg-white dark:bg-gray-900 shadow-md flex justify-between items-center h-16">
+        <nav className="fixed top-0 left-0 w-full z-50 p-4 bg-gray-100 dark:bg-gray-800 shadow-md flex justify-between items-center h-16">
             <Link to="/" className="font-bold text-primary dark:text-light text-2xl md:text-3xl">
                 Shoppi
             </Link>
