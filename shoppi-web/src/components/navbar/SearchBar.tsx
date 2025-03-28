@@ -1,8 +1,9 @@
-import React, {useEffect, useState} from "react";
+import React, {useEffect, useRef, useState} from "react";
 import {RotateCcw, Search, X} from "lucide-react";
 import SearchSuggestions from "./SearchSuggestions";
 import {Suggestion} from "../../types/Suggestion";
 import productSearchService from "../../api/productSearchService";
+import {useNavigate} from "react-router-dom";
 
 const SearchBar = () => {
     const [searchQuery, setSearchQuery] = useState("");
@@ -11,6 +12,15 @@ const SearchBar = () => {
     const [typingTimeout, setTypingTimeout] = useState<NodeJS.Timeout | null>(null);
     const [showResetIcon, setShowResetIcon] = useState(false);
     const [isFocused, setIsFocused] = useState(false);
+    const navigate = useNavigate();
+    const inputRef = useRef<HTMLInputElement>(null);
+
+    const handleKeyDown = (event: React.KeyboardEvent<HTMLInputElement>) => {
+        if (event.key === "Enter" && searchQuery.trim()) {
+            navigate(`/search?title=${encodeURIComponent(searchQuery.trim())}`);
+            inputRef.current?.blur();
+        }
+    };
 
     useEffect(() => {
         if (searchQuery === "") {
@@ -78,9 +88,11 @@ const SearchBar = () => {
         <div className="relative w-full max-w-2xl mx-4">
             <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-500 dark:text-gray-300 text-lg"/>
             <input
+                ref={inputRef}
                 type="text"
                 placeholder="Szukaj produktu..."
                 value={searchQuery}
+                onKeyDown={handleKeyDown}
                 onChange={(e) => setSearchQuery(e.target.value)}
                 onFocus={() => setIsFocused(true)}
                 onBlur={() => setTimeout(() => setIsFocused(false), 150)}

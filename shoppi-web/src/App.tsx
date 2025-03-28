@@ -13,6 +13,7 @@ import CompanySettings from "./pages/CompanySettings";
 import ProtectedRoute from "./components/ProtectedRoute";
 import {UserProvider} from "./context/UserContext";
 import ProductDetailsPage from "./pages/ProductDetailsPage";
+import SearchPage from "./pages/SearchPage";
 
 function App() {
     return (
@@ -22,10 +23,11 @@ function App() {
                     <Router>
                         <div className="min-h-screen font-sans bg-white dark:bg-gray-900 text-primary dark:text-light pt-16">
                             <Navbar/>
-                            <div className="h-[calc(100vh-4rem)] overflow-y-auto">
+                            <div id="scroll-container" className="h-[calc(100vh-4rem)] overflow-y-auto">
                                 <Routes>
                                     <Route path="/" element={<Home/>}/>
                                     <Route path="/products/:id" element={<ProductDetailsPage/>}/>
+                                    <Route path="/search" element={<SearchPage/>}/>
 
                                     <Route element={<ProtectedRoute allowedAccountTypes={["USER"]} redirectPath="/"/>}>
                                         <Route path="/my-orders" element={<MyOrders/>}/>

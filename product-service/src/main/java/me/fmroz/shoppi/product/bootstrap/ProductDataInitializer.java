@@ -31,7 +31,7 @@ public class ProductDataInitializer implements CommandLineRunner {
     @Value("${app.data.populate:false}")
     private boolean shouldPopulate;
 
-    private static final int PRODUCT_COUNT = 300;
+    private static final int PRODUCT_COUNT = 1000;
     private static final Long USER_ID_START = 1L;
     private static final Long SELLER_ID_START = 31L;
 
