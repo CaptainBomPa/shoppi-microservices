@@ -5,6 +5,7 @@ import MyOfferCard from "../components/products/MyOfferCard";
 import {useNavigate} from "react-router-dom";
 import ProductStatusFilter from "../components/products/ProductStatusFilter";
 import ConfirmDeleteDialog from "../components/products/ConfirmDeleteDialog";
+import {motion} from "framer-motion";
 
 const MyOffers = () => {
     const {user} = useUser();
@@ -42,7 +43,12 @@ const MyOffers = () => {
     const filtered = products.filter(p => filteredStatuses.includes(p.status));
 
     return (
-        <div className="p-6 max-w-[1600px] mx-auto">
+        <motion.div
+            initial={{opacity: 0, y: 30}}
+            animate={{opacity: 1, y: 0}}
+            transition={{duration: 0.4}}
+            className="p-6 max-w-[1600px] mx-auto"
+        >
             <div className="flex flex-col lg:flex-row gap-6">
                 <ProductStatusFilter
                     selected={filteredStatuses}
@@ -84,7 +90,7 @@ const MyOffers = () => {
                 }}
             />
 
-        </div>
+        </motion.div>
     );
 };
 

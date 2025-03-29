@@ -15,6 +15,7 @@ import {UserProvider} from "./context/UserContext";
 import ProductDetailsPage from "./pages/ProductDetailsPage";
 import SearchPage from "./pages/SearchPage";
 import ProductFormPage from "./pages/ProductFormPage";
+import '@uiw/react-markdown-preview/markdown.css';
 
 function App() {
     return (

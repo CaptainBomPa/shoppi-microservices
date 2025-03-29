@@ -10,6 +10,39 @@ body {
     overflow: hidden;
 }
 
+.rich-tree-kanit * {
+    font-family: 'Kanit', sans-serif !important;
+}
+
+.custom-md-editor .w-md-editor-toolbar {
+    font-size: 16px !important;
+    padding: 10px 12px !important;
+}
+
+.custom-md-editor .w-md-editor-toolbar li > button {
+    color: inherit;
+    transition: color 0.2s ease;
+    margin-bottom: 4px !important;
+    padding: 4px 12px !important;
+    font-size: 15px !important;
+}
+
+.custom-md-editor .w-md-editor-toolbar li > button:hover {
+    color: #7A73D1 !important;
+}
+
+.custom-md-editor .w-md-editor-toolbar li > button:hover svg {
+    stroke: #7A73D1 !important;
+}
+
+.custom-md-editor .w-md-editor-toolbar li > button.active {
+    color: #7A73D1 !important;
+}
+
+.custom-md-editor .w-md-editor-toolbar li > button.active svg {
+    stroke: #7A73D1 !important;
+}
+
 * {
     @apply box-border;
 }

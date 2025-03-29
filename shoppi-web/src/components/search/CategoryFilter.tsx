@@ -48,6 +48,7 @@ const CategoryTree: React.FC<Props> = ({selectedCategoryId, onCategoryChange}) =
                 selectedItems={selectedCategoryId ? [selectedCategoryId.toString()] : []}
                 onItemSelectionToggle={handleSelection}
                 multiSelect={true}
+                className="rich-tree-kanit"
             />
         </div>
     );

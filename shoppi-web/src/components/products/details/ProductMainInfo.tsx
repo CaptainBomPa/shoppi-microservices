@@ -1,5 +1,8 @@
-import React from "react";
+import React, {useContext} from "react";
 import {ProductResponse} from "../../../api/productService";
+import Markdown from "@uiw/react-markdown-preview";
+import {ThemeContext} from "../../../context/ThemeContext";
+import '@uiw/react-markdown-preview/markdown.css';
 
 type Props = {
     product: ProductResponse;
@@ -7,6 +10,9 @@ type Props = {
 };
 
 const ProductMainInfo = ({product, onImageLoad}: Props) => {
+    const themeContext = useContext(ThemeContext);
+    const currentMode = themeContext?.theme === "dark" ? "dark" : "light";
+
     return (
         <div className="col-span-2 bg-gray-50 dark:bg-gray-800 rounded-2xl shadow p-6 h-full">
             <h1 className="text-3xl font-bold mb-2">{product.title}</h1>
@@ -21,9 +27,16 @@ const ProductMainInfo = ({product, onImageLoad}: Props) => {
                 onLoad={onImageLoad}
             />
 
-            <p className="text-gray-700 dark:text-gray-300 mb-6 whitespace-pre-line">
-                {product.description}
-            </p>
+            <div className="mb-6">
+                <Markdown
+                    source={product.description}
+                    wrapperElement={{
+                        'data-color-mode': currentMode,
+                    }}
+                    className="bg-transparent font-[Kanit]"
+                    style={{backgroundColor: "transparent"}}
+                />
+            </div>
 
             <div className="text-sm text-gray-500 dark:text-gray-400 space-y-1">
                 <p><strong>Status:</strong> {product.status}</p>
