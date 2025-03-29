@@ -53,7 +53,7 @@ public class UserDataInitializer implements CommandLineRunner {
 
         for (int i = 31; i <= 100; i++) {
             ShoppiUser user = generateEmptySeller(i);
-            ShoppiUser savedUser = userRepository.save(user);
+            ShoppiUser savedUser = shoppiUserService.createUser(user);
 
             CompanyInfo company = generateCompanyInfo(savedUser);
             companyInfoRepository.save(company);

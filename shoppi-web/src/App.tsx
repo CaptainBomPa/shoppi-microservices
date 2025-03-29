@@ -14,6 +14,7 @@ import ProtectedRoute from "./components/ProtectedRoute";
 import {UserProvider} from "./context/UserContext";
 import ProductDetailsPage from "./pages/ProductDetailsPage";
 import SearchPage from "./pages/SearchPage";
+import ProductFormPage from "./pages/ProductFormPage";
 
 function App() {
     return (
@@ -37,6 +38,8 @@ function App() {
 
                                     <Route element={<ProtectedRoute allowedAccountTypes={["SELLER"]} redirectPath="/"/>}>
                                         <Route path="/my-offers" element={<MyOffers/>}/>
+                                        <Route path="/my-offers/add" element={<ProductFormPage/>}/>
+                                        <Route path="/my-offers/edit/:id" element={<ProductFormPage/>}/>
                                         <Route path="/company-settings" element={<CompanySettings/>}/>
                                     </Route>
 

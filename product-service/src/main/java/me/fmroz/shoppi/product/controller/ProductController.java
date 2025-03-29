@@ -33,6 +33,11 @@ public class ProductController {
         return ResponseEntity.ok(productService.getProductById(id));
     }
 
+    @GetMapping("/user/{id}")
+    public ResponseEntity<List<Product>> getUserProducts(@PathVariable Long id) {
+        return ResponseEntity.ok(productService.getProductsForUser(id));
+    }
+
     @GetMapping("/batch")
     public ResponseEntity<List<Product>> getProductsByIds(@RequestParam Set<Long> ids) {
         return ResponseEntity.ok(productService.getProductsByIds(ids));

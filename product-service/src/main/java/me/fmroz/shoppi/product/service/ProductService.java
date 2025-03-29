@@ -16,6 +16,7 @@ import org.springframework.transaction.annotation.Transactional;
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Set;
+import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
@@ -77,6 +78,12 @@ public class ProductService {
     public Product getProductById(Long productId) {
         return productRepository.findById(productId)
                 .orElseThrow(() -> new ProductNotFoundException("Product not found with id: " + productId));
+    }
+
+    public List<Product> getProductsForUser(Long userId) {
+        return productRepository.findAll().stream()
+                .filter(product -> product.getUserId().equals(userId))
+                .collect(Collectors.toList());
     }
 
     public List<Product> getProductsByIds(Set<Long> productIds) {

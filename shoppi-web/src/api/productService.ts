@@ -40,6 +40,11 @@ const productService = {
         return response.data;
     },
 
+    getProductsByUserId: async (id: number): Promise<ProductResponse[]> => {
+        const response = await api.get(`${PRODUCT_URL}/user/${id}`);
+        return response.data;
+    },
+
     getProductsByIds: async (ids: number[]): Promise<ProductResponse[]> => {
         const params = new URLSearchParams();
         ids.forEach((id) => params.append("ids", id.toString()));
