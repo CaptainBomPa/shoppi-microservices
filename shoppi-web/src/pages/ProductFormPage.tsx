@@ -4,12 +4,14 @@ import productService, {ProductRequest, ProductResponse} from "../api/productSer
 import ProductForm from "../components/products/manipulation/ProductForm";
 import {ProductFormSchema} from "../components/products/manipulation/productFormSchema";
 import {motion} from "framer-motion";
+import CustomAlert from "../components/CustomAlert";
 
 const ProductFormPage = () => {
     const {id} = useParams();
     const isEditMode = !!id;
     const [product, setProduct] = useState<ProductResponse | null>(null);
     const navigate = useNavigate();
+    const [errorMessage, setErrorMessage] = useState<string | null>(null);
 
     useEffect(() => {
         if (isEditMode) {
@@ -33,12 +35,14 @@ const ProductFormPage = () => {
         try {
             if (isEditMode && id) {
                 await productService.updateProduct(Number(id), payload);
+                navigate("/my-offers", {state: {success: "Pomyślnie zaktualizowane ofertę!"}});
             } else {
                 await productService.createProduct(payload);
+                navigate("/my-offers", {state: {success: "Pomyślnie dodano ofertę!"}});
             }
-            navigate("/my-offers");
         } catch (err) {
             console.error("Błąd podczas zapisu produktu:", err);
+            setErrorMessage("Nie udało się zapisać produktu. Spróbuj ponownie.");
         }
     };
 
@@ -50,6 +54,10 @@ const ProductFormPage = () => {
             transition={{duration: 0.4}}
             className="p-6 max-w-[1600px] mx-auto"
         >
+            {errorMessage && (
+                <CustomAlert message={errorMessage} type="error" onClose={() => setErrorMessage(null)}/>
+            )}
+
             <div className="bg-gray-50 dark:bg-gray-800 rounded-2xl shadow p-6">
                 <h1 className="text-2xl font-bold mb-6">
                     {isEditMode ? `Edycja produktu #${id}` : "Dodaj nową ofertę"}
@@ -62,13 +70,19 @@ const ProductFormPage = () => {
                         defaultValues={
                             isEditMode
                                 ? {
-                                    ...product,
-                                    expiresAt:
-                                        new Date(product!.expiresAt).getDate() -
-                                        new Date().getDate(), // to można potem ulepszyć
+                                    title: product!.title,
+                                    description: product!.description,
+                                    price: product!.price,
+                                    currency: product!.currency,
+                                    quantity: product!.quantity,
+                                    status: product!.status,
+                                    userId: product!.userId,
+                                    categoryId: product!.category.id,
+                                    expiresAt: new Date(product!.expiresAt).getDate() - new Date().getDate(),
                                 }
                                 : undefined
                         }
+
                         onSubmit={handleSubmit}
                     />
                 )}

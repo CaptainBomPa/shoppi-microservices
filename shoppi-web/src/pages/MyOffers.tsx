@@ -2,10 +2,11 @@ import React, {useEffect, useState} from "react";
 import {useUser} from "../context/UserContext";
 import productService, {ProductResponse, ProductStatus} from "../api/productService";
 import MyOfferCard from "../components/products/MyOfferCard";
-import {useNavigate} from "react-router-dom";
+import {useLocation, useNavigate} from "react-router-dom";
 import ProductStatusFilter from "../components/products/ProductStatusFilter";
 import ConfirmDeleteDialog from "../components/products/ConfirmDeleteDialog";
 import {motion} from "framer-motion";
+import CustomAlert from "../components/CustomAlert";
 
 const MyOffers = () => {
     const {user} = useUser();
@@ -18,6 +19,9 @@ const MyOffers = () => {
     ]);
     const navigate = useNavigate();
     const [productToDelete, setProductToDelete] = useState<number | null>(null);
+    const location = useLocation();
+    const successMessage = location.state?.success;
+    const [alertVisible, setAlertVisible] = useState(!!successMessage);
 
     useEffect(() => {
         if (user) {
@@ -49,6 +53,10 @@ const MyOffers = () => {
             transition={{duration: 0.4}}
             className="p-6 max-w-[1600px] mx-auto"
         >
+            {alertVisible && successMessage && (
+                <CustomAlert message={successMessage} type="success" onClose={() => setAlertVisible(false)}/>
+            )}
+
             <div className="flex flex-col lg:flex-row gap-6">
                 <ProductStatusFilter
                     selected={filteredStatuses}

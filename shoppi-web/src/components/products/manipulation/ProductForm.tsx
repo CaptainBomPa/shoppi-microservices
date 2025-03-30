@@ -48,7 +48,7 @@ const ProductForm: React.FC<Props> = ({defaultValues, onSubmit}) => {
                 <ProductStatusSection/>
                 <ProductDescriptionSection/>
                 <ProductCategorySection/>
-                <ProductDurationSection/>
+                <ProductDurationSection isEditMode={!!defaultValues}/>
                 <ProductPricingSection/>
                 <ProductSubmitSection/>
             </form>
