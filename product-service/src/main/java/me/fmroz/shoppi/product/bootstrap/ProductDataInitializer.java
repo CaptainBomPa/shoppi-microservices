@@ -86,184 +86,184 @@ public class ProductDataInitializer implements CommandLineRunner {
 
             Map.entry("Komputery", List.of(
                     """
-                    ### 💻 Gamingowy PC z RTX 3060
-            
-                    Wysokowydajny zestaw komputerowy dla graczy:
-                    - Procesor: **AMD Ryzen 7 5800X**
-                    - Karta graficzna: **NVIDIA GeForce RTX 3060 12GB**
-                    - RAM: **32GB DDR4 3200MHz**
-                    - Dysk: **SSD 1TB NVMe**
-            
-                    🔥 Idealny do gier AAA, streamowania i pracy kreatywnej.
-                    """,
+                            ### 💻 Gamingowy PC z RTX 3060
+                            
+                            Wysokowydajny zestaw komputerowy dla graczy:
+                            - Procesor: **AMD Ryzen 7 5800X**
+                            - Karta graficzna: **NVIDIA GeForce RTX 3060 12GB**
+                            - RAM: **32GB DDR4 3200MHz**
+                            - Dysk: **SSD 1TB NVMe**
+                            
+                            🔥 Idealny do gier AAA, streamowania i pracy kreatywnej.
+                            """,
                     """
-                    ### 🧑‍💼 Komputer do biura z monitorem FHD
-            
-                    Zestaw idealny do pracy zdalnej:
-                    - Procesor: **Intel Core i5 11400**
-                    - Monitor: **24" Full HD**
-                    - System: **Windows 11 Pro**
-            
-                    ✅ Gotowy do pracy od razu po podłączeniu.
-                    """,
+                            ### 🧑‍💼 Komputer do biura z monitorem FHD
+                            
+                            Zestaw idealny do pracy zdalnej:
+                            - Procesor: **Intel Core i5 11400**
+                            - Monitor: **24" Full HD**
+                            - System: **Windows 11 Pro**
+                            
+                            ✅ Gotowy do pracy od razu po podłączeniu.
+                            """,
                     """
-                    ### 📦 Mini PC – kompaktowe rozwiązanie
-            
-                    - Rozmiar: **Ultra mini (mieści się w dłoni)**
-                    - Procesor: **Intel N6005**
-                    - Wyjścia: **HDMI, DisplayPort, USB-C**
-            
-                    Świetny do **mediów domowych**, jako **HTPC** albo mały serwer.
-                    """
+                            ### 📦 Mini PC – kompaktowe rozwiązanie
+                            
+                            - Rozmiar: **Ultra mini (mieści się w dłoni)**
+                            - Procesor: **Intel N6005**
+                            - Wyjścia: **HDMI, DisplayPort, USB-C**
+                            
+                            Świetny do **mediów domowych**, jako **HTPC** albo mały serwer.
+                            """
             )),
 
             Map.entry("Laptopy", List.of(
                     """
-                    ### 🎮 Laptop gamingowy z RTX 4060
-            
-                    - Matryca: **15.6" 144Hz IPS**
-                    - GPU: **RTX 4060 8GB**
-                    - RAM: **16GB DDR5**
-                    - Chłodzenie: **Podwójny wentylator z miedzianymi rurkami**
-            
-                    🔋 Do 6h na baterii | **Windows 11 Home**
-                    """,
+                            ### 🎮 Laptop gamingowy z RTX 4060
+                            
+                            - Matryca: **15.6" 144Hz IPS**
+                            - GPU: **RTX 4060 8GB**
+                            - RAM: **16GB DDR5**
+                            - Chłodzenie: **Podwójny wentylator z miedzianymi rurkami**
+                            
+                            🔋 Do 6h na baterii | **Windows 11 Home**
+                            """,
                     """
-                    ### ✨ Ultrabook do pracy i podróży
-            
-                    - Ekran: **13.3" dotykowy OLED**
-                    - Waga: **1.1 kg**
-                    - Obudowa: **Aluminium klasy lotniczej**
-            
-                    🔋 Bateria do **14h** pracy, idealny dla studentów i profesjonalistów.
-                    """,
+                            ### ✨ Ultrabook do pracy i podróży
+                            
+                            - Ekran: **13.3" dotykowy OLED**
+                            - Waga: **1.1 kg**
+                            - Obudowa: **Aluminium klasy lotniczej**
+                            
+                            🔋 Bateria do **14h** pracy, idealny dla studentów i profesjonalistów.
+                            """,
                     """
-                    ### 🧳 Laptop biznesowy z dodatkami premium
-            
-                    - Obudowa z włókna węglowego
-                    - Klawiatura podświetlana, **czytnik linii papilarnych**
-                    - System: **Windows 11 Pro**
-            
-                    📈 Idealny wybór dla menedżerów i pracowników korporacyjnych.
-                    """
+                            ### 🧳 Laptop biznesowy z dodatkami premium
+                            
+                            - Obudowa z włókna węglowego
+                            - Klawiatura podświetlana, **czytnik linii papilarnych**
+                            - System: **Windows 11 Pro**
+                            
+                            📈 Idealny wybór dla menedżerów i pracowników korporacyjnych.
+                            """
             )),
 
             Map.entry("Smartfony", List.of(
                     """
-                    ### 📱 Flagowy smartfon z AMOLED i 5G
-            
-                    - Ekran: **6.8" AMOLED 120Hz**
-                    - Chip: **Snapdragon 8 Gen 2**
-                    - RAM: **12GB**, Pamięć: **256GB**
-            
-                    📸 Aparat **200MP** z trybem nocnym i nagrywaniem 8K.  
-                    🔋 Szybkie ładowanie **120W** – 0% do 100% w 19 minut!
-                    """,
+                            ### 📱 Flagowy smartfon z AMOLED i 5G
+                            
+                            - Ekran: **6.8" AMOLED 120Hz**
+                            - Chip: **Snapdragon 8 Gen 2**
+                            - RAM: **12GB**, Pamięć: **256GB**
+                            
+                            📸 Aparat **200MP** z trybem nocnym i nagrywaniem 8K.  
+                            🔋 Szybkie ładowanie **120W** – 0% do 100% w 19 minut!
+                            """,
                     """
-                    ### 🍏 iPhone 14 Pro Max
-            
-                    - Ekran: **Super Retina XDR**, Always-On
-                    - Dynamic Island, FaceID, 5G
-                    - Aparat: **48MP ProRAW**, tryb filmowy
-            
-                    System: **iOS 17**, gwarantowane aktualizacje na lata.
-                    """,
+                            ### 🍏 iPhone 14 Pro Max
+                            
+                            - Ekran: **Super Retina XDR**, Always-On
+                            - Dynamic Island, FaceID, 5G
+                            - Aparat: **48MP ProRAW**, tryb filmowy
+                            
+                            System: **iOS 17**, gwarantowane aktualizacje na lata.
+                            """,
                     """
-                    ### 💡 Smartfon budżetowy
-            
-                    - Ekran: **6.5" HD+**
-                    - Procesor: **Helio G35**
-                    - Dual SIM, Gniazdo Jack 3.5mm
-            
-                    Idealny jako **telefon zapasowy** lub dla seniora.
-                    """
+                            ### 💡 Smartfon budżetowy
+                            
+                            - Ekran: **6.5" HD+**
+                            - Procesor: **Helio G35**
+                            - Dual SIM, Gniazdo Jack 3.5mm
+                            
+                            Idealny jako **telefon zapasowy** lub dla seniora.
+                            """
             )),
 
             Map.entry("Meble", List.of(
                     """
-                    ### 🛋️ Szafa przesuwna z lustrem
-            
-                    - Wymiary: **200x180x60 cm**
-                    - Kolor: **Dąb Sonoma**
-                    - System cichy domyk, szyny aluminiowe
-            
-                    🪞 Z dużym lustrem, idealna do sypialni lub przedpokoju.
-                    """,
+                            ### 🛋️ Szafa przesuwna z lustrem
+                            
+                            - Wymiary: **200x180x60 cm**
+                            - Kolor: **Dąb Sonoma**
+                            - System cichy domyk, szyny aluminiowe
+                            
+                            🪞 Z dużym lustrem, idealna do sypialni lub przedpokoju.
+                            """,
                     """
-                    ### 🪑 Biurko regulowane z szufladami
-            
-                    - Blat: **120x60 cm**, MDF lakierowany
-                    - Wysokość: **regulowana elektrycznie**
-                    - 2 szuflady i organizer kabli
-            
-                    Dla graczy, uczniów i do home office!
-                    """,
+                            ### 🪑 Biurko regulowane z szufladami
+                            
+                            - Blat: **120x60 cm**, MDF lakierowany
+                            - Wysokość: **regulowana elektrycznie**
+                            - 2 szuflady i organizer kabli
+                            
+                            Dla graczy, uczniów i do home office!
+                            """,
                     """
-                    ### 👑 Fotel ergonomiczny z podparciem lędźwiowym
-            
-                    - Materiał: **Siatka Mesh + Ekoskóra**
-                    - Regulowane podłokietniki, zagłówek
-                    - Max obciążenie: **120kg**
-            
-                    ✅ Dla zdrowych pleców i komfortowej pracy.
-                    """
+                            ### 👑 Fotel ergonomiczny z podparciem lędźwiowym
+                            
+                            - Materiał: **Siatka Mesh + Ekoskóra**
+                            - Regulowane podłokietniki, zagłówek
+                            - Max obciążenie: **120kg**
+                            
+                            ✅ Dla zdrowych pleców i komfortowej pracy.
+                            """
             )),
 
             Map.entry("Książki", List.of(
                     """
-                    ### 📚 "Harry Potter i Kamień Filozoficzny"
-            
-                    - Autor: **J.K. Rowling**
-                    - Gatunek: **Fantasy / Młodzieżowa**
-                    - Stron: **320**
-            
-                    ✨ Pierwsza część przygód młodego czarodzieja – klasyk literatury współczesnej!
-                    """,
+                            ### 📚 "Harry Potter i Kamień Filozoficzny"
+                            
+                            - Autor: **J.K. Rowling**
+                            - Gatunek: **Fantasy / Młodzieżowa**
+                            - Stron: **320**
+                            
+                            ✨ Pierwsza część przygód młodego czarodzieja – klasyk literatury współczesnej!
+                            """,
                     """
-                    ### 🧠 "Atomowe nawyki" – James Clear
-            
-                    - Gatunek: **Poradnik / Psychologia**
-                    - Bestseller **New York Times**
-            
-                    Naucz się **budować dobre nawyki** i skutecznie pozbywać się złych.
-                    """,
+                            ### 🧠 "Atomowe nawyki" – James Clear
+                            
+                            - Gatunek: **Poradnik / Psychologia**
+                            - Bestseller **New York Times**
+                            
+                            Naucz się **budować dobre nawyki** i skutecznie pozbywać się złych.
+                            """,
                     """
-                    ### 🕵️ "Zbrodnia i kara" – Fiodor Dostojewski
-            
-                    - Klasyk literatury rosyjskiej
-                    - Motyw winy i odkupienia
-            
-                    📘 Idealna lektura dla miłośników ciężkiej, głębokiej fabuły.
-                    """
+                            ### 🕵️ "Zbrodnia i kara" – Fiodor Dostojewski
+                            
+                            - Klasyk literatury rosyjskiej
+                            - Motyw winy i odkupienia
+                            
+                            📘 Idealna lektura dla miłośników ciężkiej, głębokiej fabuły.
+                            """
             )),
 
             Map.entry("Rowery", List.of(
                     """
-                    ### 🚵 Rower Górski 27.5" z amortyzacją
-            
-                    - Rama: **Aluminiowa**
-                    - Hamulce: **Tarcze hydrauliczne**
-                    - Amortyzator: **100mm skoku**
-            
-                    🏞️ Gotowy na górskie szlaki i leśne trasy!
-                    """,
+                            ### 🚵 Rower Górski 27.5" z amortyzacją
+                            
+                            - Rama: **Aluminiowa**
+                            - Hamulce: **Tarcze hydrauliczne**
+                            - Amortyzator: **100mm skoku**
+                            
+                            🏞️ Gotowy na górskie szlaki i leśne trasy!
+                            """,
                     """
-                    ### 🏁 Rower Szosowy Carbon
-            
-                    - Rama: **Włókno węglowe**
-                    - Przerzutki: **Shimano Tiagra**
-                    - Koła: **700c z niskim oporem toczenia**
-            
-                    Prędkość i lekkość – dla pasjonatów wyścigów!
-                    """,
+                            ### 🏁 Rower Szosowy Carbon
+                            
+                            - Rama: **Włókno węglowe**
+                            - Przerzutki: **Shimano Tiagra**
+                            - Koła: **700c z niskim oporem toczenia**
+                            
+                            Prędkość i lekkość – dla pasjonatów wyścigów!
+                            """,
                     """
-                    ### 🚲 Rower miejski z koszykiem
-            
-                    - 3 biegi **Shimano Nexus**
-                    - Bagażnik, dzwonek, błotniki
-            
-                    Stylowy i praktyczny. Idealny na zakupy i dojazdy do pracy.
-                    """
+                            ### 🚲 Rower miejski z koszykiem
+                            
+                            - 3 biegi **Shimano Nexus**
+                            - Bagażnik, dzwonek, błotniki
+                            
+                            Stylowy i praktyczny. Idealny na zakupy i dojazdy do pracy.
+                            """
             ))
 
     );
@@ -297,6 +297,11 @@ public class ProductDataInitializer implements CommandLineRunner {
             String title = pickRandom(titleTemplates.get(templateKey));
             String description = pickRandom(descriptionTemplates.get(templateKey));
             Category category = pickRandom(categorized.getOrDefault(templateKey, categories));
+            ProductStatus productStatus = randomEnum(ProductStatus.class);
+            LocalDateTime promotedUntil = null;
+            if (productStatus == ProductStatus.ACTIVE) {
+                promotedUntil = LocalDateTime.now().plusDays(random.nextInt(7));
+            }
 
             Product product = Product.builder()
                     .title(title)
@@ -306,9 +311,9 @@ public class ProductDataInitializer implements CommandLineRunner {
                     .userId(userId)
                     .price(BigDecimal.valueOf(50 + random.nextInt(1000)))
                     .currency(randomEnum(Currency.class))
-                    .status(randomEnum(ProductStatus.class))
+                    .status(productStatus)
                     .quantity(1 + random.nextInt(20))
-                    .promotedUntil(random.nextBoolean() ? LocalDateTime.now().plusDays(7) : null)
+                    .promotedUntil(promotedUntil)
                     .category(category)
                     .build();
 
